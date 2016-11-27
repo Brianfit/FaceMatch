@@ -1,0 +1,231 @@
+<html >
+<head>
+  <meta charset="UTF-8">
+  <title>Memory Game</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="css/reset.min.css">
+
+<!--   <link rel='stylesheet prefetch' href='http://fonts.googleapis.com/css?family=Anton'> -->
+<!-- 
+
+Coins.css contains camera and mic etc icons
+ -->
+<link rel="stylesheet" href="css/coin.css"> 
+<link rel="stylesheet" href="css/animsition.min.css">
+      <link rel="stylesheet" href="css/style.css">
+
+     <!-- <meta http-equiv="Content-Security-Policy" content="default-src *; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval'"> -->
+     <meta http-equiv="Content-Security-Policy" content="default-src 'self' * gap://ready; style-src 'self' 'unsafe-inline' *; script-src 'self' 'unsafe-inline' 'unsafe-eval' *">
+
+
+        <meta name="format-detection" content="telephone=no">
+        <meta name="msapplication-tap-highlight" content="no">
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+           <link rel="stylesheet" type="text/css" href="css/index.css">
+           <script>
+           
+           var pictureSource;   // picture source
+var destinationType; // sets the format of returned value
+           
+           document.addEventListener("deviceready",onDeviceReady,false);
+
+    // device APIs are available
+    //
+    function onDeviceReady() {
+        pictureSource=navigator.camera.PictureSourceType;
+        destinationType=navigator.camera.DestinationType;
+        }
+            // Called when a photo is successfully retrieved
+    //
+    function onPhotoDataSuccess(imageData) {
+      // Uncomment to view the base64-encoded image data
+      //console.log(imageData);
+
+      // Get image handle
+      //
+//       var smallImage = document.getElementById('smallImage');
+// 
+//       // Unhide image elements
+//       //
+//       smallImage.style.display = 'block';
+// 
+//       // Show the captured photo
+//       // The in-line CSS rules are used to resize the image
+//       //
+//       smallImage.src = "data:image/jpeg;base64," + imageData;
+   
+    }
+
+    // Called when a photo is successfully retrieved
+    //
+    function onPhotoURISuccess(imageURI) {
+      // Uncomment to view the image file URI
+      console.log(imageURI);
+      Card[PhotoNum] = imageURI;
+      ChangePhoto(PhotoNum);
+
+
+      // Get image handle
+      //
+//       var largeImage = document.getElementById('largeImage');
+// 
+//       // Unhide image elements
+//       //
+//       largeImage.style.display = 'block';
+// 
+//       // Show the captured photo
+//       // The in-line CSS rules are used to resize the image
+//       //
+//       largeImage.src = imageURI;
+    }
+
+function captureName() {navigator.device.capture.captureAudio(captureSuccess, captureError, {limit:1});
+}
+
+    // A button will call this function
+    //
+    function capturePhoto() {
+    console.log('Capture photo');
+      // Take picture using device camera and retrieve image as base64-encoded string
+      navigator.camera.getPicture(onPhotoDataSuccess, onFail, { quality: 50,
+        destinationType: destinationType.FILE_URI });
+      
+      SetupPix();
+    }
+
+    // A button will call this function
+    //
+    function capturePhotoEdit() {
+      // Take picture using device camera, allow edit, and retrieve image as base64-encoded string
+      navigator.camera.getPicture(onPhotoURISuccess, onFail, { quality: 20, allowEdit: true,
+        destinationType: destinationType.FILE_URI });
+    }
+
+    // A button will call this function
+    //
+    function getPhoto(source) {
+      // Retrieve image file location from specified source
+      navigator.camera.getPicture(onPhotoURISuccess, onFail, { quality: 50,
+        destinationType: destinationType.FILE_URI,
+        sourceType: source });
+    }
+
+    // Called if something bad happens.
+    //
+    function onFail(message) {
+      alert('Failed because: ' + message);
+    }
+    
+    // capture callback
+var captureSuccess = function(mediaFiles) {
+    var i, path, len;
+    for (i = 0, len = mediaFiles.length; i < len; i += 1) {
+        path = mediaFiles[i].fullPath;
+        
+        
+        // do something interesting with the file
+    }
+};
+
+var playSound = function(x) {
+    getSounds().then(function(sounds) {
+        var sound = sounds[x];
+
+        /*
+        Ok, so on Android, we just work.
+        On iOS, we need to rewrite to ../Library/NoCloud/FILE
+        */
+        var mediaUrl = sound.file;
+        if(device.platform.indexOf("iOS") >= 0) {
+            mediaUrl = "../Library/NoCloud/" + mediaUrl.split("/").pop();
+        }
+        var media = new Media(mediaUrl, function(e) {
+            media.release();
+        }, function(err) {
+            console.log("media err", err);
+        });
+        media.play();           
+    });     
+}
+
+// capture error callback
+var captureError = function(error) {
+    navigator.notification.alert('Error code: ' + error.code, null, 'Capture Error');
+};
+
+// start audio capture
+
+    
+    
+           </script>
+  
+</head>
+
+<body>
+<div class="animsition">
+  <div class="wrap animsition"> 
+<div class="game animsition"></div>
+	
+	<div class="modal-overlay">
+		<div class="modal">
+			<h2 class="winner">Hooray!</h2>
+			<button class="restart">Play Again?</button>
+<!-- 			<p class="share-text">Share it?</p> -->
+			<!-- 
+<ul class="social">
+				<li><a target="_blank" class="twitter" href="http://twitter.com/share?url=http://codepen.io/natewiley/pen/HBrbL"><span class="brandico-twitter-bird"></span></a></li>
+				<li><a target="_blank" class="facebook" href="http://www.facebook.com/sharer.php?u=http://codepen.io/natewiley/pen/HBrbL"><span class="brandico-facebook"></span></a></li>
+				<li><a target="_blank" class="google" href="https://plus.google.com/share?url=http://codepen.io/natewiley/pen/HBrbL"><span class="brandico-googleplus-rect"></span></a></li>
+			</ul>
+ -->
+		</div>
+	</div>
+  <footer>
+		<p class="disclaimer" style="font-family:Chewy">Dad Craft</p>
+	</footer>
+  </div><!-- End Wrap -->
+
+   </div> <!-- End Animsition -->  
+   
+        <script src='js/jquery.min.js'></script>
+   <script src="js/index.js"></script>
+    <script type="text/javascript" src="cordova.js"></script>
+      <script src="js/animsition.min.js"></script>
+      <script>$(".animsition").animsition({
+  inClass: "flip-in-y",
+  outClass: "flip-out-y"
+});</script>   
+
+    
+<script>$('body').on('click', '.Change1', function(e) {
+ChangePhoto(1)
+
+}); </script>
+<script>$('body').on('click', '.Change2', function(e) {
+ChangePhoto(2);
+}); </script>
+<script>$('body').on('click', '.Change3', function(e) {
+ChangePhoto(3);
+}); </script>
+<script>$('body').on('click', '.Change4', function(e) {
+ChangePhoto(4);
+}); </script>
+<script>$('body').on('click', '.Change5', function(e) {
+ChangePhoto(5);
+}); </script>
+<script>$('body').on('click', '.Change6', function(e) {
+ChangePhoto(6);
+}); </script>
+
+
+<script>$('body').on('click', '#Play', function(e) {
+PlayGame();
+}); </script>
+           
+
+
+</body>
+</html>
+
+
+

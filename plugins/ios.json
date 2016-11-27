@@ -1,0 +1,36 @@
+{
+    "prepare_queue": {
+        "installed": [],
+        "uninstalled": []
+    },
+    "config_munge": {
+        "files": {}
+    },
+    "installed_plugins": {
+        "cordova-plugin-whitelist": {
+            "PACKAGE_NAME": "net.brianfitzgerald.familymatch"
+        },
+        "cordova-plugin-camera": {
+            "CAMERA_USAGE_DESCRIPTION": " ",
+            "PHOTOLIBRARY_USAGE_DESCRIPTION": " ",
+            "PACKAGE_NAME": "net.brianfitzgerald.familymatch"
+        },
+        "cordova-plugin-media-capture": {
+            "CAMERA_USAGE_DESCRIPTION": " ",
+            "MICROPHONE_USAGE_DESCRIPTION": " ",
+            "PHOTOLIBRARY_USAGE_DESCRIPTION": " ",
+            "PACKAGE_NAME": "net.brianfitzgerald.familymatch"
+        },
+        "cordova-plugin-statusbar": {
+            "PACKAGE_NAME": "net.brianfitzgerald.familymatch"
+        }
+    },
+    "dependent_plugins": {
+        "cordova-plugin-compat": {
+            "PACKAGE_NAME": "net.brianfitzgerald.familymatch"
+        },
+        "cordova-plugin-file": {
+            "PACKAGE_NAME": "net.brianfitzgerald.familymatch"
+        }
+    }
+}

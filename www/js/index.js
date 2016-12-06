@@ -14,6 +14,15 @@ Card[4] = "images/4File.jpg"
 Card[5] = "images/5File.jpg"
 Card[6] = "images/6File.jpg"
 
+var AudioName = []
+AudioName[0] = "audio/Record-My-Name.wav"
+AudioName[1] = "audio/Record-My-Name.wav"
+AudioName[2] = "audio/Record-My-Name.wav"
+AudioName[3] = "audio/Record-My-Name.wav"
+AudioName[4] = "audio/Record-My-Name.wav"
+AudioName[5] = "audio/Record-My-Name.wav"
+AudioName[6] = "audio/Record-My-Name.wav"
+
 
 var PhotoNum;
 
@@ -138,31 +147,38 @@ function PlayGame(){
 			name: "Image1",
 			img: Card[1],
 			id: 1,
+			audio: AudioName[1]
 		},
 		{
 			name: "Image2",
 			img: Card[2],
-			id: 2
+			id: 2,
+			audio: AudioName[2]
+
 		},		
 		{
 			name: "Image3",
 			img: Card[3],
-			id: 3
+			id: 3,
+			audio: AudioName[3]
 		},
 		{
 			name: "Image4",
 			img: Card[4],
-			id: 4
+			id: 4,
+			audio: AudioName[4]
 		},
 		{
 			name: "Image5",
 			img: Card[5],
-			id: 5
+			id: 5,
+			audio: AudioName[5]
 		}, 
 		{
 			name: "Image6",
 			img: Card[6],
-			id: 6
+			id: 6,
+			audio: AudioName[6]
 		},
 
 	];
@@ -189,11 +205,52 @@ PhotoNum = PhotoNumber;
 var SwapCard = Card[PhotoNum];
 // var imgWidth = img.naturalWidth;
 // console.log(imgWidth);
-$('.game').html('<br /><div class="singlecard" style="width:200px; height:250px"><div class="inside"><div class="back" id="imgDiv"><img src="'+SwapCard+'" class="center"></a></div></div></div><br /><br /><br /><br /><div class="center"><button style="height:50px;width:100px" onclick="capturePhotoEdit();"><span class="icon-camera"></span></button><br /><button style="height:50px;width:100px" ><span class="icon-picture"></span><br /></button><br /><button style="height:50px;width:100px"  onclick="captureName();"><span class="icon-mic"></span></button><br /><Button style="height:50px;width:100px"  onclick="SetupPix()"><span class="icon-to-start"></span></button></div>').animsition('in');
+$('.game').html('<br /><div class="singlecard" style="width:200px; height:250px"><div class="inside"><div class="back" id="imgDiv"><img src="'+SwapCard+'" class="center"></a></div></div></div><br /><br /><br /><br /><div class="row"><div class="col-md-6 col-md-offset-3" style="background-color:#DEDCE9;"><div class="center"><button style="height:50px;width:100px" onclick="capturePhotoEdit();"><span class="icon-camera"></span></button><button style="height:50px;width:100px" ><span class="icon-picture"></span></button></button><button style="height:50px;width:100px"  onclick="playAudio(AudioName[PhotoNum]);"><span class="icon-play"></span></button><button style="height:50px;width:100px"  onclick="CaptureAudio(PhotoNum);"><span class="icon-mic"></span></button><Button style="height:50px;width:100px"  onclick="SetupPix()"><span class="icon-to-start"></span></button></div></div></div>').animsition('in');
 
 
 }
 
+function CaptureAudio(PhotoNumber) {
+// capture callback
+var captureSuccess = function(mediaFiles) {
+    var i, path, len;
+    for (i = 0, len = mediaFiles.length; i < len; i += 1) {
+        path = mediaFiles[i].fullPath;
+        console.log(path);
+        playAudio(path);
+        AudioName[PhotoNumber] = path;
+        
+        // do something interesting with the file
+    }
+};
+
+// capture error callback
+var captureError = function(error) {
+    navigator.notification.alert('Error code: ' + error.code, null, 'Capture Error');
+};
+
+// start audio capture
+navigator.device.capture.captureAudio(captureSuccess, captureError);
+
+}
+
+function playAudio(url) {
+    // Play the audio file at url
+    var my_media = new Media(url,
+        // success callback
+        function () {
+            console.log("playAudio():Audio Success");
+        },
+        // error callback
+        function (err) {
+            console.log("playAudio():Audio Error: " + err);
+        }
+    );
+    // Play audio
+    my_media.play();
+//     my_media.stop();
+//     my_media.release();
+}
 
 
 // <div class="singlecard"><div class="inside"><div class="back">

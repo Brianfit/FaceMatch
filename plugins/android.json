@@ -18,6 +18,9 @@
         },
         "cordova-plugin-statusbar": {
             "PACKAGE_NAME": "net.brianfitzgerald.familymatch"
+        },
+        "cordova-plugin-media": {
+            "PACKAGE_NAME": "net.brianfitzgerald.familymatch"
         }
     },
     "dependent_plugins": {

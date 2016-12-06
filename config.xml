@@ -22,24 +22,13 @@
     <platform name="ios">
         <allow-intent href="itms:*" />
         <allow-intent href="itms-apps:*" />
-                <feature name="StatusBar">
+        <feature name="StatusBar">
             <param name="ios-package" onload="true" value="CDVStatusBar" />
         </feature>
         <preference name="Orientation" value="all" />
         <preference name="StatusBarOverlaysWebView" value="false" />
         <preference name="StatusBarBackgroundColor" value="#A7A7A7" />
-        <preference name="StatusBarStyle" value="lightcontent" />     
-<!-- 
-<config-file platform="ios" target="*-Info.plist" parent="NSCameraUsageDescription">  
-            <array>
-                <string>Family Match needs access to the camera to make game tiles from your family photos</string>
-            </array>
-</config-file>
-    <config-file platform="ios" target="*-Info.plist" parent="NSPhotoLibraryUsageDescriptionentry">  
-            <array>
-                <string>Family Match needs access to the photo library to make game tiles from your family photos</string>
-            </array>
-</config-file> 
- -->   
-</platform>
+        <preference name="StatusBarStyle" value="lightcontent" />
+    </platform>
+    <plugin name="cordova-plugin-media" spec="~2.4.0" />
 </widget>

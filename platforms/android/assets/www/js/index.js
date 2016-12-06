@@ -4,8 +4,22 @@
 // best in full screen, works on phones/tablets (min height for game is 500px..) enjoy ;)
 // Follow me on Codepen
 
-(function(){
-	
+var Card = [] 
+
+Card[0] = "images/vos.jpg"
+Card[1] = "images/1File.jpg"
+Card[2] = "images/2File.jpg"
+Card[3] = "images/3File.jpg"
+Card[4] = "images/4File.jpg"
+Card[5] = "images/5File.jpg"
+Card[6] = "images/6File.jpg"
+
+
+var PhotoNum;
+
+
+function PlayGame(){
+
 	var Memory = {
 
 		init: function(cards){
@@ -15,6 +29,7 @@
 			this.$restartButton = $("button.restart");
 			this.cardsArray = $.merge(cards, cards);
 			this.shuffleCards(this.cardsArray);
+			///So you'll call THIS: When it's time to play the game.
 			this.setup();
 		},
 
@@ -30,7 +45,7 @@
 			this.paused = false;
      	this.guess = null;
 		},
-
+		
 		binding: function(){
 			this.$memoryCards.on("click", this.cardClicked);
 			this.$restartButton.on("click", $.proxy(this.reset, this));
@@ -108,8 +123,8 @@
 				frag += '<div class="card" data-id="'+ v.id +'"><div class="inside">\
 				<div class="front"><img src="'+ v.img +'"\
 				alt="'+ v.name +'" /></div>\
-				<div class="back"><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/74196/codepen-logo.png"\
-				alt="Codepen" /></div></div>\
+				<div class="back"><img src="images/heart.jpg"\
+				alt="Heart" /></div></div>\
 				</div>';
 			});
 			return frag;
@@ -121,67 +136,108 @@
 	var cards = [
 		{
 			name: "Image1",
-			img: "images/1File.jpg",
+			img: Card[1],
 			id: 1,
 		},
 		{
 			name: "Image2",
-			img: "images/2File.jpg",
+			img: Card[2],
 			id: 2
+		},		
+		{
+			name: "Image3",
+			img: Card[3],
+			id: 3
 		},
 		{
 			name: "Image4",
-			img: "images/4File.jpg",
+			img: Card[4],
 			id: 4
 		},
 		{
 			name: "Image5",
-			img: "images/5File.jpg",
+			img: Card[5],
 			id: 5
 		}, 
 		{
 			name: "Image6",
-			img: "images/6File.jpg",
+			img: Card[6],
 			id: 6
 		},
-		{
-			name: "node",
-			img: "images/3File.jpg",
-			id: 3
-		},
-// 		{
-// 			name: "photoshop",
-// 			img: "https://s3-us-west-2.amazonaws.com/s.cdpn.io/74196/photoshop-logo.png",
-// 			id: 7
-// 		},
-// 		{
-// 			name: "python",
-// 			img: "https://s3-us-west-2.amazonaws.com/s.cdpn.io/74196/python-logo.png",
-// 			id: 8
-// 		},
-// 		{
-// 			name: "rails",
-// 			img: "https://s3-us-west-2.amazonaws.com/s.cdpn.io/74196/rails-logo.png",
-// 			id: 9
-// 		},
-// 		{
-// 			name: "sass",
-// 			img: "https://s3-us-west-2.amazonaws.com/s.cdpn.io/74196/sass-logo.png",
-// 			id: 10
-// 		},
-// 		{
-// 			name: "sublime",
-// 			img: "https://s3-us-west-2.amazonaws.com/s.cdpn.io/74196/sublime-logo.png",
-// 			id: 11
-// 		},
-// 		{
-// 			name: "wordpress",
-// 			img: "https://s3-us-west-2.amazonaws.com/s.cdpn.io/74196/wordpress-logo.png",
-// 			id: 12
-// 		},
+
 	];
     
 	Memory.init(cards);
 
 
-})();
+};
+
+function SetupPix() {
+// $(".animsition").animsition({
+//   inClass: "rotate-in",
+//   outClass: "rotate-out"
+// });
+$('.game').html('<br /><br /><br /><h1 style="font-family: Chewy;"></h1><br /><div class="card"><div class="inside"><div class="back"><a href="javascript:void(0)" class="Change1"><img src="'+Card[1]+'"></a></div></div></div><div class="card"><div class="inside"><div class="back"><a href="javascript:void(0)" class="Change2"><img src="'+Card[2]+'"></a></div></div></div><div class="card"><div class="inside"><div class="back"><a href="javascript:void(0)" class="Change3"><img src="'+Card[3]+'"></a></div></div></div><div class="card"><div class="inside"><div class="back"><a href="javascript:void(0)" class="Change4"><img src="'+Card[4]+'"></a></div></div></div><div class="card"><div class="inside"><div class="back"><a href="javascript:void(0)" class="Change5"><img src="'+Card[5]+'"></a></div></div></div><div class="card"><div class="inside"><div class="back"><a href="javascript:void(0)" class="Change6"><img src="'+Card[6]+'"></a></div></div></div><br /><br /><br /><br /><div class="center"><a href="javascript:void(0)" id="Play"><img src="images/play-button.png"></a></div>');
+console.log('Setuppix');
+
+
+}
+
+function ChangePhoto(PhotoNumber) {
+PhotoNum = PhotoNumber;
+// var SwapCard = 'images/'+PhotoNum+'File.jpg';
+var SwapCard = Card[PhotoNum];
+// var imgWidth = img.naturalWidth;
+// console.log(imgWidth);
+$('.game').html('<br /><div class="singlecard" style="width:200px; height:250px"><div class="inside"><div class="back" id="imgDiv"><img src="'+SwapCard+'" class="center"></a></div></div></div><br /><br /><br /><br /><div class="row"><div class="col-md-6 col-md-offset-3" style="background-color:#DEDCE9;"><div class="center"><button style="height:50px;width:100px" onclick="capturePhotoEdit();"><span class="icon-camera"></span></button><button style="height:50px;width:100px" ><span class="icon-picture"></span></button><button style="height:50px;width:100px"  onclick="CaptureAudio(PhotoNum);"><span class="icon-mic"></span></button><Button style="height:50px;width:100px"  onclick="SetupPix()"><span class="icon-to-start"></span></button></div></div></div>').animsition('in');
+
+
+}
+
+function CaptureAudio(PhotoNumber) {
+// capture callback
+var captureSuccess = function(mediaFiles) {
+    var i, path, len;
+    for (i = 0, len = mediaFiles.length; i < len; i += 1) {
+        path = mediaFiles[i].fullPath;
+        console.log(path);
+        playAudio(path);
+        
+        // do something interesting with the file
+    }
+};
+
+// capture error callback
+var captureError = function(error) {
+    navigator.notification.alert('Error code: ' + error.code, null, 'Capture Error');
+};
+
+// start audio capture
+navigator.device.capture.captureAudio(captureSuccess, captureError);
+
+}
+
+function playAudio(url) {
+    // Play the audio file at url
+    var my_media = new Media(url,
+        // success callback
+        function () {
+            console.log("playAudio():Audio Success");
+        },
+        // error callback
+        function (err) {
+            console.log("playAudio():Audio Error: " + err);
+        }
+    );
+    // Play audio
+    my_media.play();
+}
+
+
+// <div class="singlecard"><div class="inside"><div class="back">
+// </div></div></div>
+SetupPix();
+//  PlayGame();
+
+
+

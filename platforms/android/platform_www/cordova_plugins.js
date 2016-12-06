@@ -244,6 +244,20 @@ module.exports = [
         "clobbers": [
             "window.StatusBar"
         ]
+    },
+    {
+        "file": "plugins/cordova-plugin-media/www/MediaError.js",
+        "id": "cordova-plugin-media.MediaError",
+        "clobbers": [
+            "window.MediaError"
+        ]
+    },
+    {
+        "file": "plugins/cordova-plugin-media/www/Media.js",
+        "id": "cordova-plugin-media.Media",
+        "clobbers": [
+            "window.Media"
+        ]
     }
 ];
 module.exports.metadata = 
@@ -254,7 +268,8 @@ module.exports.metadata =
     "cordova-plugin-camera": "2.3.0",
     "cordova-plugin-file": "4.3.0",
     "cordova-plugin-media-capture": "1.4.0",
-    "cordova-plugin-statusbar": "2.2.0"
+    "cordova-plugin-statusbar": "2.2.0",
+    "cordova-plugin-media": "2.4.0"
 };
 // BOTTOM OF METADATA
 });

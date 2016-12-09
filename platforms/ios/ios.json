@@ -39,6 +39,22 @@
                         {
                             "xml": "<feature name=\"Media\"><param name=\"ios-package\" value=\"CDVSound\" /></feature>",
                             "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"Console\"><param name=\"ios-package\" value=\"CDVLogger\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"Device\"><param name=\"ios-package\" value=\"CDVDevice\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"SplashScreen\"><param name=\"ios-package\" value=\"CDVSplashScreen\" /><param name=\"onload\" value=\"true\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"Keyboard\"><param name=\"ios-package\" onload=\"true\" value=\"IonicKeyboard\" /></feature>",
+                            "count": 1
                         }
                     ]
                 }
@@ -98,6 +114,18 @@
             "PACKAGE_NAME": "net.brianfitzgerald.familymatch"
         },
         "cordova-plugin-media": {
+            "PACKAGE_NAME": "net.brianfitzgerald.familymatch"
+        },
+        "cordova-plugin-console": {
+            "PACKAGE_NAME": "net.brianfitzgerald.familymatch"
+        },
+        "cordova-plugin-device": {
+            "PACKAGE_NAME": "net.brianfitzgerald.familymatch"
+        },
+        "cordova-plugin-splashscreen": {
+            "PACKAGE_NAME": "net.brianfitzgerald.familymatch"
+        },
+        "ionic-plugin-keyboard": {
             "PACKAGE_NAME": "net.brianfitzgerald.familymatch"
         }
     },
@@ -393,6 +421,47 @@
             "clobbers": [
                 "window.Media"
             ]
+        },
+        {
+            "file": "plugins/cordova-plugin-console/www/console-via-logger.js",
+            "id": "cordova-plugin-console.console",
+            "pluginId": "cordova-plugin-console",
+            "clobbers": [
+                "console"
+            ]
+        },
+        {
+            "file": "plugins/cordova-plugin-console/www/logger.js",
+            "id": "cordova-plugin-console.logger",
+            "pluginId": "cordova-plugin-console",
+            "clobbers": [
+                "cordova.logger"
+            ]
+        },
+        {
+            "file": "plugins/cordova-plugin-device/www/device.js",
+            "id": "cordova-plugin-device.device",
+            "pluginId": "cordova-plugin-device",
+            "clobbers": [
+                "device"
+            ]
+        },
+        {
+            "file": "plugins/cordova-plugin-splashscreen/www/splashscreen.js",
+            "id": "cordova-plugin-splashscreen.SplashScreen",
+            "pluginId": "cordova-plugin-splashscreen",
+            "clobbers": [
+                "navigator.splashscreen"
+            ]
+        },
+        {
+            "file": "plugins/ionic-plugin-keyboard/www/ios/keyboard.js",
+            "id": "ionic-plugin-keyboard.keyboard",
+            "pluginId": "ionic-plugin-keyboard",
+            "clobbers": [
+                "cordova.plugins.Keyboard"
+            ],
+            "runs": true
         }
     ],
     "plugin_metadata": {
@@ -402,6 +471,10 @@
         "cordova-plugin-file": "4.3.0",
         "cordova-plugin-media-capture": "1.4.0",
         "cordova-plugin-statusbar": "2.2.0",
-        "cordova-plugin-media": "2.4.0"
+        "cordova-plugin-media": "2.4.0",
+        "cordova-plugin-console": "1.0.4",
+        "cordova-plugin-device": "1.1.3",
+        "cordova-plugin-splashscreen": "4.0.0",
+        "ionic-plugin-keyboard": "2.2.1"
     }
 }

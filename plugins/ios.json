@@ -26,6 +26,18 @@
         },
         "cordova-plugin-media": {
             "PACKAGE_NAME": "net.brianfitzgerald.familymatch"
+        },
+        "cordova-plugin-console": {
+            "PACKAGE_NAME": "net.brianfitzgerald.familymatch"
+        },
+        "cordova-plugin-device": {
+            "PACKAGE_NAME": "net.brianfitzgerald.familymatch"
+        },
+        "cordova-plugin-splashscreen": {
+            "PACKAGE_NAME": "net.brianfitzgerald.familymatch"
+        },
+        "ionic-plugin-keyboard": {
+            "PACKAGE_NAME": "net.brianfitzgerald.familymatch"
         }
     },
     "dependent_plugins": {

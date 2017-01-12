@@ -14,7 +14,7 @@ html, body {
 }
 
 body {
-	background: black;
+	background: #BA55D3;
 	min-height: 100%;
 	font-family: "Arial", sans-serif;
 }
@@ -44,7 +44,7 @@ body {
 		background: #bcffcc;
 	}
 	100% {
-		background: white;
+		background: #BA55D3;
 	}
 }
 
@@ -70,7 +70,7 @@ body {
 		display: block;
 		transform-style: preserve-3d;
 		transition: .4s ease-in-out;
-		background: white;
+		background: #BA55D3;
 
 		&.picked, &.matched {
 			transform: rotateY(180deg);
@@ -82,14 +82,15 @@ body {
 	}
 
   .front, .back {
-  	border: 1px solid black;
+  	border: none;
   	backface-visibility: hidden;
   	position: absolute;
   	top: 0;
   	left: 0;
   	width: 100%;
   	height: 100%;
-  	padding: 20px;
+  	padding: 0px;
+  	background-color: #BA55D3;
 
   	img {
   		max-width: 100%;
@@ -107,6 +108,7 @@ body {
   .back{
 		@include width(800px){
   		padding: 10px;
+  		
   	}
   }
 }
@@ -130,7 +132,7 @@ body {
 	max-width: 90%;
 	min-height: 380px;
 	margin: 0 auto;
-	background: white;
+	background: #BA55D3;
 	top: 50%;
 	transform: translateY(-50%);
 	padding: 30px 10px;
@@ -155,7 +157,7 @@ body {
 		background: linear-gradient(#4d4d4d, #222);
 		border: 1px solid #222;
 		border-radius: 5px;
-		color: white;
+		color: #BA55D3;
 		text-shadow: 0px 1px 0 black;
 		cursor: pointer;
 		&:hover {
@@ -194,7 +196,7 @@ body {
 				display: block;
 				line-height: 50px;
 				font-size: 20px;
-				color: white;
+				color: #BA55D3;
 				text-decoration: none;
 				border-radius: 5px;
 				&.facebook {
@@ -220,8 +222,8 @@ body {
 	}
 }
 
-footer {
-	height: 20px;
+.footer {
+	height: 50px;
 	position: absolute;
 	bottom: 0;
 	width: 100%;

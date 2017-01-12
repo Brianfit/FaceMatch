@@ -15,16 +15,17 @@ Card[5] = "images/5File.jpg"
 Card[6] = "images/6File.jpg"
 
 var AudioName = []
-AudioName[0] = "audio/Record-My-Name.wav"
-AudioName[1] = "audio/Record-My-Name.wav"
-AudioName[2] = "audio/Record-My-Name.wav"
-AudioName[3] = "audio/Record-My-Name.wav"
-AudioName[4] = "audio/Record-My-Name.wav"
-AudioName[5] = "audio/Record-My-Name.wav"
-AudioName[6] = "audio/Record-My-Name.wav"
+AudioName[0] = "audio/Record-My-Name-0.wav"
+AudioName[1] = "audio/Record-My-Name-1.wav"
+AudioName[2] = "audio/Record-My-Name-2.wav"
+AudioName[3] = "audio/Record-My-Name-3.wav"
+AudioName[4] = "audio/Record-My-Name-4.wav"
+AudioName[5] = "audio/Record-My-Name-5.wav"
+AudioName[6] = "audio/Record-My-Name-6.wav"
 
 
 var PhotoNum;
+var CardAudio;
 
 
 function PlayGame(){
@@ -52,7 +53,7 @@ function PlayGame(){
 			this.$memoryCards = $(".card");
 			this.binding();
 			this.paused = false;
-     	this.guess = null;
+     	    this.guess = null;
 		},
 		
 		binding: function(){
@@ -65,6 +66,12 @@ function PlayGame(){
 			var $card = $(this);
 			if(!_.paused && !$card.find(".inside").hasClass("matched") && !$card.find(".inside").hasClass("picked")){
 				$card.find(".inside").addClass("picked");
+				var AudioElement = $("#audio");
+              CardAudio = AudioElement.data("audiofile");
+					
+					console.log(AudioName[$(this).attr("data-id")]); 
+			 	    playAudio(AudioName[$(this).attr("data-id")]);
+				
 				if(!_.guess){
 					_.guess = $(this).attr("data-id");
 				} else if(_.guess == $(this).attr("data-id") && !$(this).hasClass("picked")){
@@ -90,11 +97,12 @@ function PlayGame(){
 				Memory.showModal();
 				Memory.$game.fadeOut();
 			}, 1000);
+			playAudio(audio/tada.mp3);
 		},
 
 		showModal: function(){
 			this.$overlay.show();
-			this.$modal.fadeIn("slow");
+			this.$modal.fadeIn("slow");	
 		},
 
 		hideModal: function(){
@@ -129,12 +137,10 @@ function PlayGame(){
 		buildHTML: function(){
 			var frag = '';
 			this.$cards.each(function(k, v){
-				frag += '<div class="card" data-id="'+ v.id +'"><div class="inside">\
-				<div class="front"><img src="'+ v.img +'"\
-				alt="'+ v.name +'" /></div>\
-				<div class="back"><img src="images/heart.jpg"\
-				alt="Heart" /></div></div>\
-				</div>';
+				frag += '<div class="card" data-id="'+ v.id +'"><div class="inside"><div class="front" style="margin: 0 auto; padding-left: 5; padding-top: 10; background-color:#FF6296;"><img src="'+ v.img +'"alt="'+ v.name +'" /></div><div class="back" style="margin: 0 auto; padding-left: 5; padding-top: 10; background-color:#FF6296;"><img src="images/heart.png" alt="Heart" /><div id="audio" data-audiofile="'+ v.audio +'"></div></div></div></div>';
+              
+              
+			
 			});
 			return frag;
 		}
@@ -193,7 +199,7 @@ function SetupPix() {
 //   inClass: "rotate-in",
 //   outClass: "rotate-out"
 // });
-$('.game').html('<br /><br /><br /><h1 style="font-family: Chewy;"></h1><br /><div class="card"><div class="inside"><div class="back"><a href="javascript:void(0)" class="Change1"><img src="'+Card[1]+'"></a></div></div></div><div class="card"><div class="inside"><div class="back"><a href="javascript:void(0)" class="Change2"><img src="'+Card[2]+'"></a></div></div></div><div class="card"><div class="inside"><div class="back"><a href="javascript:void(0)" class="Change3"><img src="'+Card[3]+'"></a></div></div></div><div class="card"><div class="inside"><div class="back"><a href="javascript:void(0)" class="Change4"><img src="'+Card[4]+'"></a></div></div></div><div class="card"><div class="inside"><div class="back"><a href="javascript:void(0)" class="Change5"><img src="'+Card[5]+'"></a></div></div></div><div class="card"><div class="inside"><div class="back"><a href="javascript:void(0)" class="Change6"><img src="'+Card[6]+'"></a></div></div></div><br /><br /><br /><br /><div class="center"><a href="javascript:void(0)" id="Play"><img src="images/play-button.png"></a></div>');
+$('.game').html('<br /><br /><br /><h1 style="font-family: Chewy;"></h1><br /><div class="card"><div class="inside"><div class="back" style="margin: 0 auto; padding-left: 5; padding-top: 10; background-color:#FF6296;"><a href="javascript:void(0)" class="Change1"><img src="'+Card[1]+'"></a></div></div></div><div class="card"><div class="inside"><div class="back" style="margin: 0 auto; padding-left: 5; padding-top: 10; background-color:#FF6296;"><a href="javascript:void(0)" class="Change2"><img src="'+Card[2]+'"></a></div></div></div><div class="card"><div class="inside"><div class="back" style="margin: 0 auto; padding-left: 5; padding-top: 10; background-color:#FF6296;"><a href="javascript:void(0)" class="Change3"><img src="'+Card[3]+'"></a></div></div></div><div class="card"><div class="inside"><div class="back" style="margin: 0 auto; padding-left: 5; padding-top: 10; background-color:#FF6296;"><a href="javascript:void(0)" class="Change4"><img src="'+Card[4]+'"></a></div></div></div><div class="card"><div class="inside"><div class="back" style="margin: 0 auto; padding-left: 5; padding-top: 10; background-color:#FF6296;"><a href="javascript:void(0)" class="Change5"><img src="'+Card[5]+'"></a></div></div></div><div class="card"><div class="inside"><div class="back" style="margin: 0 auto; padding-left: 5; padding-top: 10; background-color:#FF6296;"><a href="javascript:void(0)" class="Change6"><img src="'+Card[6]+'"></a></div></div></div><br /><br /><br /><br /><div class="center"><a href="javascript:void(0)" id="Play"><img src="images/play-button.png" height="100" width="100"></a></div>');
 console.log('Setuppix');
 
 
@@ -205,7 +211,7 @@ PhotoNum = PhotoNumber;
 var SwapCard = Card[PhotoNum];
 // var imgWidth = img.naturalWidth;
 // console.log(imgWidth);
-$('.game').html('<br /><div class="singlecard" style="width:200px; height:250px"><div class="inside"><div class="back" id="imgDiv"><img src="'+SwapCard+'" class="center"></a></div></div></div><br /><br /><br /><br /><div class="row"><div class="col-md-6 col-md-offset-3" style="background-color:#DEDCE9;"><div class="center"><button style="height:50px;width:100px" onclick="capturePhotoEdit();"><span class="icon-camera"></span></button><button style="height:50px;width:100px" ><span class="icon-picture"></span></button></button><button style="height:50px;width:100px"  onclick="playAudio(AudioName[PhotoNum]);"><span class="icon-play"></span></button><button style="height:50px;width:100px"  onclick="CaptureAudio(PhotoNum);"><span class="icon-mic"></span></button><Button style="height:50px;width:100px"  onclick="SetupPix()"><span class="icon-to-start"></span></button></div></div></div>').animsition('in');
+$('.game').html('<br /><div class="singlecard" style="width:200px; height:250px"><div class="inside"><div class="back" id="imgDiv"><img src="'+SwapCard+'" class="center"></a></div></div></div><br /><br /><br /><br /><div class="row"><div class="col-md-6 col-md-offset-3" style="background-color:#DEDCE9;"><div class="center"><button style="height:50px;width:100px" onclick="capturePhotoEdit();"><span class="icon-camera"></span></button><button style="height:50px;width:100px" ><span class="icon-picture"></span></button></button><button style="height:50px;width:100px"  onclick=" playAudio(AudioName[PhotoNum]);"><span class="icon-play"></span></button><button style="height:50px;width:100px"  onclick="CaptureAudio(PhotoNum);"><span class="icon-mic"></span></button><Button style="height:50px;width:100px"  onclick="SetupPix()"><span class="icon-to-start"></span></button></div></div></div>').animsition('in');
 
 
 }

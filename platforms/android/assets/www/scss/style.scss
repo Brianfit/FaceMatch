@@ -82,14 +82,15 @@ body {
 	}
 
   .front, .back {
-  	border: 1px solid black;
+  	border: none;
   	backface-visibility: hidden;
   	position: absolute;
   	top: 0;
   	left: 0;
   	width: 100%;
   	height: 100%;
-  	padding: 20px;
+  	padding: 0px;
+  	background-color: #FF6296;
 
   	img {
   		max-width: 100%;
@@ -107,13 +108,14 @@ body {
   .back{
 		@include width(800px){
   		padding: 10px;
+  		
   	}
   }
 }
 
 .modal-overlay {
 	display: none;
-	background: rgba(0,0,0,.8);
+	background: pink;
 	position: fixed;
 	top: 0;
 	left: 0;

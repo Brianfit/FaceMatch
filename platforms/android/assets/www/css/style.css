@@ -134,7 +134,7 @@ text-shadow: 2px 1px #F6CD44;
           animation-delay: .4s;
 }
 .card .front, .card .back {
-  border: 1px solid black;
+  border: none;
   -webkit-backface-visibility: hidden;
           backface-visibility: hidden;
   position: absolute;
@@ -142,7 +142,7 @@ text-shadow: 2px 1px #F6CD44;
   left: 0;
   width: 100%;
   height: 100%;
-  padding: 20px;
+  padding: 0px;
 }
 .card .front img, .card .back img {
   max-width: 100%;
@@ -161,7 +161,7 @@ text-shadow: 2px 1px #F6CD44;
 }
 @media (max-width: 800px) {
   .card .back {
-    padding: 10px;
+    padding: 0px;
   }
 }
 

@@ -38,13 +38,13 @@
         },
         "ionic-plugin-keyboard": {
             "PACKAGE_NAME": "net.brianfitzgerald.familymatch"
+        },
+        "cordova-plugin-file": {
+            "PACKAGE_NAME": "net.brianfitzgerald.familymatch"
         }
     },
     "dependent_plugins": {
         "cordova-plugin-compat": {
-            "PACKAGE_NAME": "net.brianfitzgerald.familymatch"
-        },
-        "cordova-plugin-file": {
             "PACKAGE_NAME": "net.brianfitzgerald.familymatch"
         }
     }

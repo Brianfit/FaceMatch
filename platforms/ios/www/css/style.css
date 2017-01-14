@@ -17,13 +17,16 @@
   box-sizing: border-box;
 }
 
-html, body {
-  height: 100%;
+html {
+  position: relative;
+  min-height: 100%;
+
 }
 
 body {
-  background: black;
+  background: #BA55D3;
   min-height: 100%;
+  margin-bottom: 50px;
   font-family: "Arial", sans-serif;
 }
 
@@ -79,19 +82,19 @@ text-shadow: 2px 1px #F6CD44;
 
 @-webkit-keyframes matchAnim {
   0% {
-    background: #bcffcc;
+/*     background: #bcffcc; */
   }
   100% {
-    background: #BA55D3;
+/*     background: #BA55D3; */
   }
 }
 
 @keyframes matchAnim {
   0% {
-    background: #bcffcc;
+/*     background: #bcffcc; */
   }
   100% {
-    background: #BA55D3;
+/*     background: #BA55D3; */
   }
 }
 .card {
@@ -137,7 +140,7 @@ text-shadow: 2px 1px #F6CD44;
           transform-style: preserve-3d;
   -webkit-transition: .4s ease-in-out;
   transition: .4s ease-in-out;
-  background: #BA55D3;
+/*   background: #BA55D3; */
 }
 .card .inside.picked, .card .inside.matched {
   -webkit-transform: rotateY(180deg);
@@ -294,8 +297,16 @@ text-shadow: 2px 1px #F6CD44;
   background: #73b4ff;
 }
 
+.gradient
+{
+  width: 100%;
+  height: 100%;
+  padding: 0px;
+  margin: 0px;
+}
+
 .footer {
-  height: 50px;
+  height: 100px;
   position: absolute;
   bottom: 0;
   width: 100%;

@@ -30,7 +30,11 @@
         <preference name="StatusBarOverlaysWebView" value="false" />
         <preference name="StatusBarBackgroundColor" value="#A7A7A7" />
         <preference name="StatusBarStyle" value="lightcontent" />
-    </platform>
+        <preference name="BackupWebStorage" value="local" />
+        <preference name="iosPersistentFileLocation" value="Library" />
+        
+        
+        </platform>
     <plugin name="cordova-plugin-media" spec="~2.4.0" />
     <platform name="android">
     <icon density="ldpi" src="res/icons/android/icon-36-ldpi.png" />

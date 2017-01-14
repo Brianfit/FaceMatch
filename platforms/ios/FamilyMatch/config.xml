@@ -93,7 +93,7 @@
     <splash height="2048" src="res/screens/ios/screen-ipad-landscape-ipadpro.png" width="2732" />
     <splash height="2732" src="res/screens/ios/screen-ipad-portrait-ipadpro.png" width="2048" />
     <preference name="AllowInlineMediaPlayback" value="false" />
-    <preference name="BackupWebStorage" value="cloud" />
+    <preference name="BackupWebStorage" value="local" />
     <preference name="DisallowOverscroll" value="false" />
     <preference name="EnableViewportScale" value="false" />
     <preference name="KeyboardDisplayRequiresUserAction" value="true" />
@@ -111,4 +111,5 @@
     <preference name="Orientation" value="all" />
     <preference name="StatusBarBackgroundColor" value="#A7A7A7" />
     <preference name="StatusBarStyle" value="lightcontent" />
+    <preference name="iosPersistentFileLocation" value="Library" />
 </widget>

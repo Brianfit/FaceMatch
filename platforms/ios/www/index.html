@@ -49,7 +49,7 @@ var destinationType; // sets the format of returned value
     function onPhotoURISuccess(imageURI) {
       // Uncomment to view the image file URI
       console.log(imageURI);
-//       SavePix(PhotoNum,imageURI);
+      MovePic(imageURI);
       Card[PhotoNum] = imageURI;
       ChangePhoto(PhotoNum);
 
@@ -140,7 +140,8 @@ function captureLibraryEdit() {
       getPhoto(pictureSource.PHOTOLIBRARY);
 //       console.log(imageURI);
 //       Card[PhotoNum] = imageURI;
-//       SavePix(PhotoNum,imageURI);	
+      MovePic(imageURI);	
+      Card[PhotoNum] = imageURI;
       ChangePhoto(PhotoNum);
       console.log("FISH "+PhotoNum+" "+imagURI);
 
@@ -183,16 +184,17 @@ var captureError = function(error) {
   
 </head>
 
+<!-- <body style="background-color:#BA55D3"> -->
 <body style="background-color:#BA55D3">
-<div class="container"> 
-  <div class="row"><div class="col-md-12" style="background-color:#BA55D3;">	
-
+<div class="container gradient"> 
+  <div class="row"><div class="col-md-12" >	
+<br />
    
   
   <!-- Here's where the action happens -->
-<div class="game"></div>
+<div class="game gradient" ></div>
 </div></div>
-<div class="row"><div class="col-md-12" style="background-color:#BA55D3;"><div class="center top-column">
+<div class="row"><div class="col-md-12" ><div class="center top-column">
 <div class="control footer center" style="margin-left:-25px"></div>
 </div></div> <!-- Row, col -->
 			

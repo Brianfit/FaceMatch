@@ -26,12 +26,13 @@
         <feature name="StatusBar">
             <param name="ios-package" onload="true" value="CDVStatusBar" />
         </feature>
-        <preference name="Orientation" value="all" />
+        <preference name="Orientation" value="portrait" />
         <preference name="StatusBarOverlaysWebView" value="false" />
         <preference name="StatusBarBackgroundColor" value="#A7A7A7" />
         <preference name="StatusBarStyle" value="lightcontent" />
         <preference name="BackupWebStorage" value="local" />
         <preference name="iosPersistentFileLocation" value="Library" />
+        <preference name="DisallowOverscroll value="true" />
         
         
         </platform>

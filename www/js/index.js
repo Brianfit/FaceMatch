@@ -4,11 +4,15 @@
 // best in full screen, works on phones/tablets (min height for game is 500px..) enjoy ;)
 // Follow me on Codepen
 
-// Replay button not workind
+//GET THE REPLAY BUTTON WORKIONG ON WIN SCREEN
+//Stop initial help screen showing more than once. x
+//Figure out why audio not storing / retrieving
+//Fix error message on successful audio record
+//Fix thumbnail inaccuraccy on image change
+//Add array of animated applause screens --- different one every time! x
+//PLIST: remove landscape modes
+//Add permission strings for mic and images
 
-//Add instruction screens: animated with Hype 5.
-
-//add quit button
 
 
 
@@ -35,6 +39,7 @@ AudioName[6] = "audio/Record-My-Name-6.aiff"
 var PhotoNum;
 var CardAudio;
 var Tada = "audio/tada.mp3";
+var FirstRun = true;
 
 // window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function (fs) {
 // 
@@ -82,7 +87,6 @@ function PlayGame(){
 		binding: function(){
 			this.$memoryCards.on("click", this.cardClicked);
 			this.$restartButton.on("click", $.proxy(this.reset, this));
-			
 		},
 		// kinda messy but hey
 		cardClicked: function(){
@@ -117,16 +121,24 @@ function PlayGame(){
 
 		win: function(){
 			this.paused = true;
+			var RandomNum = getRandomIntInclusive(1, 6);
+			console.log('RandomNum: '+RandomNum);
+			var HoorayImage = 'images/'+RandomNum+'.gif';
+			console.log(HoorayImage);
+			document.getElementById("Hooray").style.backgroundImage = "url("+HoorayImage +")";
 			setTimeout(function(){
 				Memory.showModal();
 				Memory.$game.fadeOut();
 			}, 1000);
 			playAudio(Tada);
+			// Vibrate for 3 seconds
+            navigator.vibrate(3000);
 		},
 
 		showModal: function(){
 			this.$overlay.show();
 			this.$modal.fadeIn("slow");	
+			
 		},
 
 		hideModal: function(){
@@ -230,9 +242,12 @@ function SetupPix() {
 //   inClass: "rotate-in",
 //   outClass: "rotate-out"
 // });
-// LoadPixAudio();
-$('.game').html('<div class="container" ><div class="row"><div class="col-xs-6"><span class="pull-right"><a href="javascript:void(0)" class="Change1"><img style="margin-top:5px;margin-bottom:5px; height:80px;" src="'+Card[1]+'"></a></span></div><div class="col-xs-6"><a href="javascript:void(0)" class="Change2"><img style="margin-top:5px;margin-bottom:5px; height:80px;" src="'+Card[2]+'"></a></div></div><div class="row"><div class="col-xs-12" ></div><div class="row"><div class="col-xs-6"><span class="pull-right"><a href="javascript:void(0)" class="Change3"><img style="margin-top:5px;margin-bottom:5px; height:80px;" src="'+Card[3]+'"></a></span></div><div class="col-xs-6"><a href="javascript:void(0)" class="Change4"><img style="margin-top:5px;margin-bottom:5px; height:80px;" src="'+Card[4]+'"></a></div></div><div class="row"><div class="col-xs-12" ></div><div class="row"><div class="col-xs-6"><span class="pull-right"><a href="javascript:void(0)" class="Change5"><img style="margin-top:5px;margin-bottom:5px; height:80px;" src="'+Card[5]+'"></a></span></div><div class="col-xs-6"><a href="javascript:void(0)" class="Change6"><img style="margin-top:5px;margin-bottom:5px; height:80px;" src="'+Card[6]+'"></a></div></div></div><div class="row"><div class="col-xs-12" ><div style="text-align:center" class="center"> Touch a play tile to change the image to a photo of a pet or family member. You can take a photo or select an image from your library. Add an audio recording of the pet or family member\'s name. All set? Press the green play button. </div></div></div>');
+LoadPixAudio();
+$('.game').html('<div class="container" ><div class="row"><div class="col-xs-6"><span class="pull-right"><a href="javascript:void(0)" class="Change1"><img style="margin-top:5px;margin-bottom:5px; height:80px;" src="'+Card[1]+'"></a></span></div><div class="col-xs-6"><a href="javascript:void(0)" class="Change2"><img style="margin-top:5px;margin-bottom:5px; height:80px;" src="'+Card[2]+'"></a></div></div><div class="row"><div class="col-xs-12" ></div><div class="row"><div class="col-xs-6"><span class="pull-right"><a href="javascript:void(0)" class="Change3"><img style="margin-top:5px;margin-bottom:5px; height:80px;" src="'+Card[3]+'"></a></span></div><div class="col-xs-6"><a href="javascript:void(0)" class="Change4"><img style="margin-top:5px;margin-bottom:5px; height:80px;" src="'+Card[4]+'"></a></div></div><div class="row"><div class="col-xs-12" ></div><div class="row"><div class="col-xs-6"><span class="pull-right"><a href="javascript:void(0)" class="Change5"><img style="margin-top:5px;margin-bottom:5px; height:80px;" src="'+Card[5]+'"></a></span></div><div class="col-xs-6"><a href="javascript:void(0)" class="Change6"><img style="margin-top:5px;margin-bottom:5px; height:80px;" src="'+Card[6]+'"></a></div></div></div><div class="row"><div class="col-xs-12"><div class="text-center" style="font-family: Indie Flower"></div></div></div>');
 
+if (FirstRun == true){
+alertify.alert("Touch a play tile to change the image to one of your own photos and add your own custom audio: for example, the name of the family member or pet spoken in your or your child\'s own voice.");
+FirstRun = false};
 
 $('.control').html('<a href="javascript:void(0)" id="Play"><img src="images/play.png" height="50" width="50" style="margin-bottom:30px"></a>');
 
@@ -246,11 +261,17 @@ var SwapCard = Card[PhotoNum];
 console.log("Swapcard "+SwapCard);
 // var imgWidth = img.naturalWidth;
 // console.log(imgWidth);
-$('.game').html('<br /><div class="singlecard" style="width:200px; height:250px"><div class="inside"><div class="back" id="imgDiv"><img src="'+SwapCard+'" class="center"></a></div></div></div><br /><div class="row"><div class="col-md-6 col-md-offset-3" ><div class="center"><button style="height:50px;width:100px" onclick="LoadPixAudio();"><span class="icon-camera"></span></button><button style="height:50px;width:100px" onclick="captureLibraryEdit();"><span class="icon-picture"></span></button><button style="height:50px;width:100px"  onclick=" playAudio(AudioName[PhotoNum]);"><span class="icon-play"></span></button><button style="height:50px;width:100px"  onclick="CaptureAudio(PhotoNum);"><span class="icon-mic"></span></button><Button style="height:50px;width:100px"  onclick="SetupPix()"><span class="icon-to-start" style="z-index:0"></span></button></div></div></div>');
+LoadPixAudio();
+$('.game').html('<br /><div class="singlecard" style="width:200px; height:250px"><div class="inside"><div class="back" id="imgDiv"><img src="'+SwapCard+'" class="center"></a></div></div></div><br /><div class="row"><div class="col-md-6 col-md-offset-3" ><div class="center"><button style="height:50px;width:100px" onclick="capturePhotoEdit();"><span class="icon-camera"></span></button><button style="height:50px;width:100px" onclick="captureLibraryEdit();"><span class="icon-picture"></span></button><button style="height:50px;width:100px"  onclick=" playAudio(AudioName[PhotoNum]);"><span class="icon-play"></span></button><button style="height:50px;width:100px"  onclick="CaptureAudio(PhotoNum);"><span class="icon-mic"></span></button><Button style="height:50px;width:100px"  onclick="SetupPix()"><span class="icon-to-start"></span></button><Button style="height:50px;width:100px"  onclick="Help();"><span class="icon-help"></span></button></div></div></div>');
 
 $('.control').html('<a href="javascript:void(0)" id="Play"><img src="images/play.png" height="50" width="50" style="margin-bottom:30px"></a>');
 
 //swap loadpixaudio in game with onclick="capturePhotoEdit();"
+
+}
+
+function Help() {
+alertify.alert("<table><tr><td><span class='icon-camera'></span></td><td>Use the Camera Icon to change the tile to a photo you want to take now.</td></tr><tr><td><span class='icon-picture'></span></td><td>Use the Library Icon to change the tile to a photo from your library. </td></tr><tr><td><span class='icon-play'></span></td><td>Use the Play button to hear the tile's audio.</td><td></tr><tr><td><span class='icon-mic'></span></td><td>Use the Mic Icon to record the name of the object, person or pet.</td></tr><tr><td><span class='icon-to-start'></span></td><td>Use the return button to go back to the other tiles.</td></tr></table>")
 
 }
 
@@ -352,10 +373,6 @@ function resolveOnSuccess(entry){
     resOnError);
 }
 
-function moveAudio(file){ 
-    window.resolveLocalFileSystemURI(file, resolveAudioOnSuccess, resOnError); 
-} 
-
 
 
 //Callback function when the file has been moved successfully - inserting the complete path
@@ -387,9 +404,7 @@ function resolveOnAudioSuccess(entry){
     resOnError);
 }
 
-function moveAudio(photonum,file){ 
-    window.resolveLocalFileSystemURI(photonum, file, resolveAudioOnSuccess, resOnError); 
-} 
+
 
 
 
@@ -401,7 +416,7 @@ function successAudioMove(entry) {
 }
 
 function resOnError(error) {
-    alert(error.code);
+    // alertify.alert('Whoops: Error code: '+error.code);
 }
 
 
@@ -463,6 +478,13 @@ var color2 = "rgb("+r2+","+g2+","+b2+")";
     colorIndices[3] = ( colorIndices[3] + Math.floor( 1 + Math.random() * (colors.length - 1))) % colors.length;
     
   }
+}
+
+function getRandomIntInclusive(min, max) {
+   console.log('Randomizing');
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
 setInterval(updateGradient,10);

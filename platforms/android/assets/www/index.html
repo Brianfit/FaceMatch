@@ -12,18 +12,24 @@
 
 Coins.css contains camera and mic etc icons
  -->
+ <link href="https://fonts.googleapis.com/css?family=Indie+Flower" rel="stylesheet">
 <link rel="stylesheet" href="css/coin.css"> 
 <link rel="stylesheet" href="css/animsition.min.css">
       <link rel="stylesheet" href="css/style.css">
 
      <!-- <meta http-equiv="Content-Security-Policy" content="default-src *; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval'"> -->
-     <meta http-equiv="Content-Security-Policy" content="default-src 'self' * gap://ready; style-src 'self' 'unsafe-inline' *; script-src 'self' 'unsafe-inline' 'unsafe-eval' *">
+     <meta http-equiv="Content-Security-Policy" content="default-src 'self' * gap://ready; style-src 'self' 'unsafe-inline' *; script-src 'self' 'unsafe-inline' 'unsafe-eval' *; img-src 'self' 'unsafe-inline' 'unsafe-eval' *">
 
 
         <meta name="format-detection" content="telephone=no">
         <meta name="msapplication-tap-highlight" content="no">
         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
            <link rel="stylesheet" type="text/css" href="css/index.css">
+           <!-- include the core styles -->
+<link rel="stylesheet" href="css/alertify.core.css" />
+<!-- include a theme, can be included into the core instead of 2 separate files -->
+<link rel="stylesheet" href="css/alertify.default.css" />
+           
            <script>
            
            var pictureSource;   // picture source
@@ -49,7 +55,7 @@ var destinationType; // sets the format of returned value
     function onPhotoURISuccess(imageURI) {
       // Uncomment to view the image file URI
       console.log(imageURI);
-      SavePix(PhotoNum,imageURI);
+      MovePic(imageURI);
       Card[PhotoNum] = imageURI;
       ChangePhoto(PhotoNum);
 
@@ -88,8 +94,9 @@ function captureName() {navigator.device.capture.captureAudio(captureSuccess, ca
 
     // Called if something bad happens.
     //
-    function onFail(message) {
-      alert('Whoops: ' + message);
+    function onFail(message) {      
+      alertify.alert("Whoops! "+message);
+      
     }
     
     // capture callback
@@ -130,7 +137,8 @@ function openFilePicker(selection) {
     // Called if something bad happens.
     //
     function onFail(message) {
-      alert('Whoops: ' + message);
+      alertify.alert("Whoops! "+message);
+      
     }
 
 function captureLibraryEdit() {
@@ -140,7 +148,8 @@ function captureLibraryEdit() {
       getPhoto(pictureSource.PHOTOLIBRARY);
 //       console.log(imageURI);
 //       Card[PhotoNum] = imageURI;
-      SavePix(PhotoNum,imageURI);	
+      MovePic(imageURI);	
+      Card[PhotoNum] = imageURI;
       ChangePhoto(PhotoNum);
       console.log("FISH "+PhotoNum+" "+imagURI);
 
@@ -183,30 +192,105 @@ var captureError = function(error) {
   
 </head>
 
+<!-- <body style="background-color:#BA55D3"> -->
 <body style="background-color:#BA55D3">
-<div class="container"> 
-  <div class="row"><div class="col-md-12" style="background-color:#BA55D3;">	
-
-   
-  
+<div class="container gradient"> 
+  <div class="row"><div class="col-md-12" >	   
   <!-- Here's where the action happens -->
-<div class="game"></div>
+<div class="game gradient" ></div>
 </div></div>
-<div class="row"><div class="col-md-12" style="background-color:#BA55D3;"><div class="center top-column">
-<div class="control footer center" style="margin-left:-25px"></div>
+<div class="row"><div class="col-md-12" ><div class="center top-column">
+<div class="control footer center" style="margin-left:-25px;"></div>
 </div></div> <!-- Row, col -->
 			
 	<div class="modal-overlay">
-		<div class="modal">
-			<h2 class="winner" style="color: Blue">Hooray!</h2>
-			<button class="restart" style="background-color: #BA55D3"><img src="images/play.png" height="100" width="100"></button><br />
+		<div class="modal" id="Hooray" style="background-size:cover;background-repeat:no-repeat; font: 10.5em/1 Open Sans, Impact;  text-transform: uppercase;">
+			
+		<svg viewBox="0 0 600 300">
+
+  <!-- Symbol with text -->
+  <symbol id="s-text">
+    <text text-anchor="middle"
+          x="50%"
+          y="50%"
+          dy=".35em"
+          class="text--line"
+          >
+      Text
+    </text>    
+  </symbol>
+
+  <!-- Clippath  with text -->
+  <clippath id="cp-text">
+    <text text-anchor="middle"
+          x="50%"
+          y="50%"
+          dy=".35em"
+          class="text--line"
+          >
+      HOORAY!
+    </text>
+  </clippath>
+
+  <!-- Group for shadow -->
+  <g clip-path="url(#cp-text)" class="shadow">
+    <rect
+          width="100%"
+          height="100%"         
+          class="anim-shape anim-shape--shadow"
+          ></rect>
+  </g>
+
+  <!-- Group with clippath for text-->
+  <g clip-path="url(#cp-text)" class="colortext">
+    <!-- Animated shapes inside text -->
+    <rect
+          width="100%"
+          height="100%"         
+          class="anim-shape"
+          ></rect>
+    <rect
+          width="80%"
+          height="100%"         
+          class="anim-shape"
+          ></rect>
+    <rect
+          width="60%"
+          height="100%"         
+          class="anim-shape"
+          ></rect>
+    <rect
+          width="40%"
+          height="100%"         
+          class="anim-shape"
+          ></rect>
+    <rect
+          width="20%"
+          height="100%"         
+          class="anim-shape"
+          ></rect>
+  </g>
+
+  <!-- Transparent copy of text to keep
+         patterned text selectable -->
+  <use xlink:href="#s-text"
+       class="text--transparent"></use>
+
+</svg>
+		 
+		
+</div>	
+
 
 		</div>
 	</div>
  
    </div><!-- End Container --> 
    
+
+   
       <script src='js/jquery.min.js'></script>
+      <script src='js/alertify.min.js'></script>
    <script src="js/index.js"></script>
     <script type="text/javascript" src="cordova.js"></script>
       <script src="js/animsition.min.js"></script>

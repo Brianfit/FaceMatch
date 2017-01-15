@@ -13,18 +13,28 @@
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
 }
 
+@font-face {
+  font-family: 'Indie Flower';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Indie Flower'), url(../fonts/IndieFlower.ttf) format('Indie Flower');
+}
+
 * {
   box-sizing: border-box;
 }
 
-html, body {
-  height: 100%;
+html {
+  position: relative;
+  min-height: 100%;
+
 }
 
 body {
-  background: black;
+  background: #BA55D3;
   min-height: 100%;
-  font-family: "Arial", sans-serif;
+  margin-bottom: 50px;
+  font-family: 'Indie Flower', cursive;
 }
 
 h1 {
@@ -79,19 +89,19 @@ text-shadow: 2px 1px #F6CD44;
 
 @-webkit-keyframes matchAnim {
   0% {
-    background: #bcffcc;
+/*     background: #bcffcc; */
   }
   100% {
-    background: #BA55D3;
+/*     background: #BA55D3; */
   }
 }
 
 @keyframes matchAnim {
   0% {
-    background: #bcffcc;
+/*     background: #bcffcc; */
   }
   100% {
-    background: #BA55D3;
+/*     background: #BA55D3; */
   }
 }
 .card {
@@ -137,7 +147,7 @@ text-shadow: 2px 1px #F6CD44;
           transform-style: preserve-3d;
   -webkit-transition: .4s ease-in-out;
   transition: .4s ease-in-out;
-  background: #BA55D3;
+/*   background: #BA55D3; */
 }
 .card .inside.picked, .card .inside.matched {
   -webkit-transform: rotateY(180deg);
@@ -200,7 +210,7 @@ text-shadow: 2px 1px #F6CD44;
   max-width: 90%;
   min-height: 380px;
   margin: 0 auto;
-  background: #BA55D3;
+ /*  background-image: url('images/catcheer.gif')" */
   top: 50%;
   -webkit-transform: translateY(-50%);
           transform: translateY(-50%);
@@ -294,8 +304,16 @@ text-shadow: 2px 1px #F6CD44;
   background: #73b4ff;
 }
 
+.gradient
+{
+  width: 100%;
+  height: 100%;
+  padding: 0px;
+  margin: 0px;
+}
+
 .footer {
-  height: 50px;
+  height: 100px;
   position: absolute;
   bottom: 0;
   width: 100%;
@@ -312,5 +330,90 @@ footer .disclaimer {
     font-size: 8px;
   }
   
-  
+}
+
+
+
+/* Main styles */
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:800);
+
+.text--transparent {
+  fill: transparent;
+}
+
+.anim-shape {
+  -webkit-transform-origin: 0x 150px;
+  -ms-transform-origin: 0x 150px;
+  transform-origin: 0x 150px;
+  -webkit-transform: scale(0, 1) translate(0, 0);
+  -ms-transform: scale(0, 1) translate(0, 0);
+  transform: scale(0, 1) translate(0, 0);
+  -webkit-animation: moving-panel 3s infinite alternate;
+  animation: moving-panel 3s infinite alternate;
+}
+
+.colortext .anim-shape:nth-child(1) {
+  fill: #0E1826;
+}
+
+.colortext .anim-shape:nth-child(2) {
+  fill: #166973;
+}
+
+.colortext .anim-shape:nth-child(3) {
+  fill: #65BFA6;
+}
+
+.colortext .anim-shape:nth-child(4) {
+  fill: #F2CD5C;
+}
+
+.colortext .anim-shape:nth-child(5) {
+  fill: #F26444;
+}
+
+.shadow {
+  -webkit-transform: translate(10px, 10px);
+  -ms-transform: translate(10px, 10px);
+  transform: translate(10px, 10px);
+}
+
+.anim-shape--shadow {
+  fill: #000;
+  fill-opacity: .2;
+}
+
+@-webkit-keyframes moving-panel {
+  100% {
+    -webkit-transform: scale(1, 1) translate(20px, 0);
+    transform: scale(1, 1) translate(20px, 0);
+  }
+}
+
+@keyframes moving-panel {
+  100% {
+    -webkit-transform: scale(1, 1) translate(20px, 0);
+    transform: scale(1, 1) translate(20px, 0);
+  }
+}
+
+/* Other stuff */
+/* 
+html, body {
+  height: 100%;
+}
+ */
+
+/* 
+body {
+  background: #EEE;
+  font: 14.5em/1 Open Sans, Impact;
+  text-transform: uppercase;
+}
+ */
+
+svg {
+  position: absolute;
+  width: 100%;
+  height: 100%;
 }

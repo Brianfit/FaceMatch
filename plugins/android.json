@@ -39,6 +39,9 @@
         },
         "cordova-plugin-vibration": {
             "PACKAGE_NAME": "net.brianfitzgerald.familymatch"
+        },
+        "cordova-custom-config": {
+            "PACKAGE_NAME": "net.brianfitzgerald.familymatch"
         }
     },
     "dependent_plugins": {

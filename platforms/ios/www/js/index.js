@@ -254,21 +254,50 @@ $('.control').html('<a href="javascript:void(0)" id="Play"><img src="images/play
 }
 
 
+
+
 function ChangePhoto(PhotoNumber) {
+LoadPixAudio();
 PhotoNum = PhotoNumber;
 // var SwapCard = 'images/'+PhotoNum+'File.jpg';
 var SwapCard = Card[PhotoNum];
 console.log("Swapcard "+SwapCard);
+
+
+
+
 // var imgWidth = img.naturalWidth;
 // console.log(imgWidth);
-LoadPixAudio();
-$('.game').html('<br /><div class="singlecard" style="width:200px; height:250px"><div class="inside"><div class="back" id="imgDiv"><img src="'+SwapCard+'" class="center"></a></div></div></div><br /><div class="row"><div class="col-md-6 col-md-offset-3" ><div class="center"><button style="height:50px;width:100px" onclick="capturePhotoEdit();"><span class="icon-camera"></span></button><button style="height:50px;width:100px" onclick="captureLibraryEdit();"><span class="icon-picture"></span></button><button style="height:50px;width:100px"  onclick=" playAudio(AudioName[PhotoNum]);"><span class="icon-play"></span></button><button style="height:50px;width:100px"  onclick="CaptureAudio(PhotoNum);"><span class="icon-mic"></span></button><Button style="height:50px;width:100px"  onclick="SetupPix()"><span class="icon-to-start"></span></button><Button style="height:50px;width:100px"  onclick="Help();"><span class="icon-help"></span></button></div></div></div>');
+$('.game').html('<br /><div class="singlecard" style="width:200px; height:250px"><div class="inside"><div class="back" id="imgDiv"><img src="'+SwapCard+'" class="center"></div></div></div><br /><div class="row"><div class="col-md-6 col-md-offset-3" ><div class="center"><button style="height:50px;width:100px" onclick="capturePhotoEdit();"><span class="icon-camera"></span></button><button style="height:50px;width:100px" onclick="captureLibraryEdit();"><span class="icon-picture"></span></button><button style="height:50px;width:100px"  onclick=" playAudio(AudioName[PhotoNum]);"><span class="icon-play"></span></button><button style="height:50px;width:100px"  onclick="CaptureAudio(PhotoNum);"><span class="icon-mic"></span></button><Button style="height:50px;width:100px"  onclick="SetupPix()"><span class="icon-to-start"></span></button><Button style="height:50px;width:100px"  onclick="Help();"><span class="icon-help"></span></button></div></div></div>');
 
 $('.control').html('<a href="javascript:void(0)" id="Play"><img src="images/play.png" height="50" width="50" style="margin-bottom:30px"></a>');
 
 //swap loadpixaudio in game with onclick="capturePhotoEdit();"
 
 }
+
+function ChangePhotoAgain(PhotoNumber) {
+
+
+LoadPixAudio();
+PhotoNum = PhotoNumber;
+// var SwapCard = 'images/'+PhotoNum+'File.jpg';
+var SwapCardAgain = Card[PhotoNum];
+console.log("SwapcardAgain "+SwapCardAgain);
+
+
+
+
+// var imgWidth = img.naturalWidth;
+// console.log(imgWidth);
+$('.game').html('<br /><div class="singlecard" style="width:200px; height:250px"><div class="inside"><div class="back" id="imgDiv"><img src="'+SwapCardAgain+'" class="center"></div></div></div><br /><div class="row"><div class="col-md-6 col-md-offset-3" ><div class="center"><button style="height:50px;width:100px" onclick="capturePhotoEdit();"><span class="icon-camera"></span></button><button style="height:50px;width:100px" onclick="captureLibraryEdit();"><span class="icon-picture"></span></button><button style="height:50px;width:100px"  onclick=" playAudio(AudioName[PhotoNum]);"><span class="icon-play"></span></button><button style="height:50px;width:100px"  onclick="CaptureAudio(PhotoNum);"><span class="icon-mic"></span></button><Button style="height:50px;width:100px"  onclick="SetupPix()"><span class="icon-to-start"></span></button><Button style="height:50px;width:100px"  onclick="Help();"><span class="icon-help"></span></button></div></div></div>');
+
+$('.control').html('<a href="javascript:void(0)" id="Play"><img src="images/play.png" height="50" width="50" style="margin-bottom:30px"></a>');
+
+//swap loadpixaudio in game with onclick="capturePhotoEdit();"
+
+}
+
 
 function Help() {
 alertify.alert("<table><tr><td><span class='icon-camera'></span></td><td>Use the Camera Icon to change the tile to a photo you want to take now.</td></tr><tr><td><span class='icon-picture'></span></td><td>Use the Library Icon to change the tile to a photo from your library. </td></tr><tr><td><span class='icon-play'></span></td><td>Use the Play button to hear the tile's audio.</td><td></tr><tr><td><span class='icon-mic'></span></td><td>Use the Mic Icon to record the name of the object, person or pet.</td></tr><tr><td><span class='icon-to-start'></span></td><td>Use the return button to go back to the other tiles.</td></tr></table>")
@@ -281,10 +310,19 @@ var captureSuccess = function(mediaFiles) {
     var i, path, len;
     for (i = 0, len = mediaFiles.length; i < len; i += 1) {
         path = mediaFiles[i].fullPath;
-        console.log(path);
+        console.log('path: '+path);
         playAudio(path);
         AudioName[PhotoNumber] = path;
-        MoveAudio(path);
+        
+        
+        var delay=5000; //1 second
+
+setTimeout(function() {
+  console.log('5 Seconds');
+   MoveAudio(path);
+  //your code to be executed after 1 second
+}, delay);
+       
         
         // do something interesting with the file
     }
@@ -314,18 +352,22 @@ function playAudio(url) {
     );
     // Play audio
     my_media.play();
-//     my_media.stop();
-//     my_media.release();
+    my_media.stop();
+    my_media.release();
 }
 
 
        
 function SavePix(CardNumber,PixURL){
-                             window.localStorage.setItem('Pix-'+CardNumber,PixURL);                
+                             window.localStorage.setItem('Pix-'+CardNumber,PixURL); 
+                             Card[CardNumber] = PixURL;       
+                             console.log('Saved and set: '+CardNumber,PixURL);        
 };
 
 function SaveAudio(CardNumber,AudioURL){
                              window.localStorage.setItem('Audio-'+CardNumber,AudioURL);
+                              AudioName[CardNumber] = AudioURL;
+                              console.log('Saved and set: '+CardNumber,AudioURL);
 };
 
 function LoadPixAudio(){
@@ -337,7 +379,7 @@ console.log('ticker = '+ticker);
 for(var i = 0; i < ticker; i++){
 
 var PixRef ='Pix-'+i;
-var AudioRef ='Audio='+i;
+var AudioRef ='Audio-'+i;
 var StoredPixURL = localStorage.getItem(PixRef);
 var StoredAudioURL = localStorage.getItem(AudioRef);
 if (StoredPixURL !== null) {Card[i] = StoredPixURL;};
@@ -345,6 +387,7 @@ console.log('LOADING: '+i+' url '+StoredPixURL);
 if (StoredAudioURL !== null) {AudioName[i] = StoredAudioURL;};
 console.log('LOADING: '+i+' url '+StoredAudioURL);
 }
+$('.game').html('');
 
 };
 
@@ -378,19 +421,26 @@ function resolveOnSuccess(entry){
 //Callback function when the file has been moved successfully - inserting the complete path
 function successMove(entry) {
     //I do my insert with "entry.fullPath" as for the path
-    console.log('Saving Picture: '+entry.toURL());
-    SavePix(PhotoNum,entry.toURL());
+    
+   //  var path = entry.toInternalURL();//given by the success callback
+// IOS_ASSETS_ABS_PATH = path.replace("file:///", "file:///private/");
+// // IOS_ASSETS_ABS_PATH += "www/";
+//     console.log('Saving Picture: '+IOS_ASSETS_ABS_PATH);
+//     SavePix(PhotoNum,IOS_ASSETS_ABS_PATH);
 }
 
 function MoveAudio(file){ 
-    window.resolveLocalFileSystemURL(file, resolveOnAudioSuccess, resOnError); 
+    console.log('MoveAudio '+file);
+
+    window.resolveLocalFileSystemURL(file, resolveOnAudioSuccess, resOnAudioError); 
 } 
 
 //Callback function when the file system uri has been resolved
 function resolveOnAudioSuccess(entry){ 
 
-    var newFileName = PhotoNum + ".aiff";
+    var newFileName = PhotoNum + ".wav";
     var myFolderApp = "FamilyFaceMatch";
+    console.log('entry: '+entry);
 
     window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function(fileSys) {      
     //The folder is created if doesn't exist
@@ -416,7 +466,11 @@ function successAudioMove(entry) {
 }
 
 function resOnError(error) {
-    // alertify.alert('Whoops: Error code: '+error.code);
+    alertify.alert('Whoops: Error code: '+error.code);
+}
+
+function resOnAudioError(error) {
+    alertify.alert('Audio Whoops: Error code: '+error.code);
 }
 
 

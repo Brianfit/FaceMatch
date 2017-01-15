@@ -121,7 +121,8 @@ function PlayGame(){
 
 		win: function(){
 			this.paused = true;
-			var RandomNum = Math.round(Math.random() * 6 + 1);
+			var RandomNum = getRandomIntInclusive(1, 6);
+			console.log('RandomNum: '+RandomNum);
 			var HoorayImage = 'images/'+RandomNum+'.gif';
 			console.log(HoorayImage);
 			document.getElementById("Hooray").style.backgroundImage = "url("+HoorayImage +")";
@@ -130,6 +131,8 @@ function PlayGame(){
 				Memory.$game.fadeOut();
 			}, 1000);
 			playAudio(Tada);
+			// Vibrate for 3 seconds
+            navigator.vibrate(3000);
 		},
 
 		showModal: function(){
@@ -251,15 +254,20 @@ $('.control').html('<a href="javascript:void(0)" id="Play"><img src="images/play
 }
 
 
+
+
 function ChangePhoto(PhotoNumber) {
+// LoadPixAudio();
 PhotoNum = PhotoNumber;
 // var SwapCard = 'images/'+PhotoNum+'File.jpg';
 var SwapCard = Card[PhotoNum];
 console.log("Swapcard "+SwapCard);
+
+
+
 // var imgWidth = img.naturalWidth;
 // console.log(imgWidth);
-LoadPixAudio();
-$('.game').html('<br /><div class="singlecard" style="width:200px; height:250px"><div class="inside"><div class="back" id="imgDiv"><img src="'+SwapCard+'" class="center"></a></div></div></div><br /><div class="row"><div class="col-md-6 col-md-offset-3" ><div class="center"><button style="height:50px;width:100px" onclick="capturePhotoEdit();"><span class="icon-camera"></span></button><button style="height:50px;width:100px" onclick="captureLibraryEdit();"><span class="icon-picture"></span></button><button style="height:50px;width:100px"  onclick=" playAudio(AudioName[PhotoNum]);"><span class="icon-play"></span></button><button style="height:50px;width:100px"  onclick="CaptureAudio(PhotoNum);"><span class="icon-mic"></span></button><Button style="height:50px;width:100px"  onclick="SetupPix()"><span class="icon-to-start"></span></button><Button style="height:50px;width:100px"  onclick="Help();"><span class="icon-help"></span></button></div></div></div>');
+$('.game').html('<br /><div class="singlecard" style="width:200px; height:250px"><div class="inside"><div class="back" id="imgDiv"><img src="'+SwapCard+'" class="center"></div></div></div><br /><div class="row"><div class="col-md-6 col-md-offset-3" ><div class="center"><button style="height:50px;width:100px" onclick="capturePhotoEdit();"><span class="icon-camera"></span></button><button style="height:50px;width:100px" onclick="captureLibraryEdit();"><span class="icon-picture"></span></button><button style="height:50px;width:100px"  onclick=" playAudio(AudioName[PhotoNum]);"><span class="icon-play"></span></button><button style="height:50px;width:100px"  onclick="CaptureAudio(PhotoNum);"><span class="icon-mic"></span></button><Button style="height:50px;width:100px"  onclick="SetupPix()"><span class="icon-to-start"></span></button><Button style="height:50px;width:100px"  onclick="Help();"><span class="icon-help"></span></button></div></div></div>');
 
 $('.control').html('<a href="javascript:void(0)" id="Play"><img src="images/play.png" height="50" width="50" style="margin-bottom:30px"></a>');
 
@@ -318,11 +326,15 @@ function playAudio(url) {
 
        
 function SavePix(CardNumber,PixURL){
-                             window.localStorage.setItem('Pix-'+CardNumber,PixURL);                
+                             window.localStorage.setItem('Pix-'+CardNumber,PixURL); 
+                             Card[CardNumber] = PixURL;       
+                             console.log('Saved and set: '+CardNumber,PixURL);        
 };
 
 function SaveAudio(CardNumber,AudioURL){
                              window.localStorage.setItem('Audio-'+CardNumber,AudioURL);
+                              AudioName[CardNumber] = AudioURL;
+                              console.log('Saved and set: '+CardNumber,AudioURL);
 };
 
 function LoadPixAudio(){
@@ -334,7 +346,7 @@ console.log('ticker = '+ticker);
 for(var i = 0; i < ticker; i++){
 
 var PixRef ='Pix-'+i;
-var AudioRef ='Audio='+i;
+var AudioRef ='Audio-'+i;
 var StoredPixURL = localStorage.getItem(PixRef);
 var StoredAudioURL = localStorage.getItem(AudioRef);
 if (StoredPixURL !== null) {Card[i] = StoredPixURL;};
@@ -375,8 +387,12 @@ function resolveOnSuccess(entry){
 //Callback function when the file has been moved successfully - inserting the complete path
 function successMove(entry) {
     //I do my insert with "entry.fullPath" as for the path
-    console.log('Saving Picture: '+entry.toURL());
-    SavePix(PhotoNum,entry.toURL());
+    
+    var path = entry.toInternalURL();//given by the success callback
+IOS_ASSETS_ABS_PATH = path.replace("file:///", "file:///private/");
+// IOS_ASSETS_ABS_PATH += "www/";
+    console.log('Saving Picture: '+IOS_ASSETS_ABS_PATH);
+    SavePix(PhotoNum,IOS_ASSETS_ABS_PATH);
 }
 
 function MoveAudio(file){ 
@@ -386,7 +402,7 @@ function MoveAudio(file){
 //Callback function when the file system uri has been resolved
 function resolveOnAudioSuccess(entry){ 
 
-    var newFileName = PhotoNum + ".aiff";
+    var newFileName = PhotoNum + ".wav";
     var myFolderApp = "FamilyFaceMatch";
 
     window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function(fileSys) {      
@@ -413,7 +429,7 @@ function successAudioMove(entry) {
 }
 
 function resOnError(error) {
-    // alertify.alert('Whoops: Error code: '+error.code);
+    alertify.alert('Whoops: Error code: '+error.code);
 }
 
 
@@ -475,6 +491,13 @@ var color2 = "rgb("+r2+","+g2+","+b2+")";
     colorIndices[3] = ( colorIndices[3] + Math.floor( 1 + Math.random() * (colors.length - 1))) % colors.length;
     
   }
+}
+
+function getRandomIntInclusive(min, max) {
+   console.log('Randomizing');
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
 setInterval(updateGradient,10);

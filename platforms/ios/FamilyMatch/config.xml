@@ -57,7 +57,12 @@
     </author>
     <content src="index.html" />
     <access origin="*" />
+    <access origin="cdvfile://*" />
+    <access origin="cdvfile:*" />
     <allow-intent href="http://*/*" />
+    <allow-navigation href="http://*/*" />
+    <allow-navigation href="data:*" />
+    <allow-navigation href="cdvfile:*" />
     <allow-intent href="https://*/*" />
     <allow-intent href="tel:*" />
     <allow-intent href="sms:*" />
@@ -65,6 +70,15 @@
     <allow-intent href="geo:*" />
     <allow-intent href="itms:*" />
     <allow-intent href="itms-apps:*" />
+    <config-file parent="NSPhotoLibraryUsageDescription" platform="ios" target="*-Info.plist">
+        <string>Family Face Match requires access to your photo library in order to customize tiles.</string>
+    </config-file>
+    <config-file parent="NSCameraUsageDescription" platform="ios" target="*-Info.plist">
+        <string>Family Face Match requires access to your camera in order to customize tiles.</string>
+    </config-file>
+    <config-file parent="NSMicrophoneUsageDescription" platform="ios" target="*-Info.plist">
+        <string>Family Face Match requires access to your microphone in order to customize tile audio.</string>
+    </config-file>
     <icon height="29" src="res/icons/ios/icon-small.png" width="29" />
     <icon height="58" src="res/icons/ios/icon-small-2x.png" width="58" />
     <icon height="87" src="res/icons/ios/icon-small-3x.png" width="87" />
@@ -97,7 +111,7 @@
     <splash height="2732" src="res/screens/ios/screen-ipad-portrait-ipadpro.png" width="2048" />
     <preference name="AllowInlineMediaPlayback" value="false" />
     <preference name="BackupWebStorage" value="local" />
-    <preference name="DisallowOverscroll" value="false" />
+    <preference name="DisallowOverscroll" value="true" />
     <preference name="EnableViewportScale" value="false" />
     <preference name="KeyboardDisplayRequiresUserAction" value="true" />
     <preference name="MediaPlaybackRequiresUserAction" value="false" />
@@ -115,4 +129,5 @@
     <preference name="StatusBarBackgroundColor" value="#A7A7A7" />
     <preference name="StatusBarStyle" value="lightcontent" />
     <preference name="iosPersistentFileLocation" value="Library" />
+    <preference name="iosExtraFilesystems" value="library,library-nosync,documents,documents-nosync,cache,bundle,root" />
 </widget>

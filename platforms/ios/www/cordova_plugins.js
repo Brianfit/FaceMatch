@@ -356,7 +356,8 @@ module.exports.metadata =
     "cordova-plugin-device": "1.1.3",
     "cordova-plugin-splashscreen": "4.0.0",
     "ionic-plugin-keyboard": "2.2.1",
-    "cordova-plugin-vibration": "2.1.3"
+    "cordova-plugin-vibration": "2.1.3",
+    "cordova-custom-config": "3.1.2"
 }
 // BOTTOM OF METADATA
 });

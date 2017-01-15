@@ -36,15 +36,15 @@
       <true/>
     </dict>
     <key>NSCameraUsageDescription</key>
-    <string/>
+    <string>Family Face Match requires access to your camera in order to customize tiles.</string>
     <key>NSLocationWhenInUseUsageDescription</key>
     <string/>
     <key>NSMainNibFile~ipad</key>
     <string/>
     <key>NSMicrophoneUsageDescription</key>
-    <string/>
+    <string>Family Face Match requires access to your microphone in order to customize tile audio.</string>
     <key>NSPhotoLibraryUsageDescription</key>
-    <string/>
+    <string>Family Face Match requires access to your photo library in order to customize tiles.</string>
     <key>UIInterfaceOrientation</key>
     <array>
       <string>UIInterfaceOrientationPortrait</string>

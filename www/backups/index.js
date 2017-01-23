@@ -40,9 +40,6 @@ var PhotoNum;
 var CardAudio;
 var Tada = "audio/tada.mp3";
 var FirstRun = true;
-var $scope;
-
-
 
 // window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function (fs) {
 // 
@@ -99,31 +96,9 @@ function PlayGame(){
 				$card.find(".inside").addClass("picked");
 				var AudioElement = $("#audio");
               CardAudio = AudioElement.data("audiofile");
-              
-              
-              if( AudioName[$(this).attr("data-id")] !== null && typeof AudioName[$(this).attr("data-id")] === 'object'){ srcfile = AudioName[$(this).attr("data-id")].toInternalURL(); 
-              console.log('Object Audio: '+srcfile); 
-			 	    playAudio(srcfile);
-              
-              } else 
-              if ( AudioName[$(this).attr("data-id")] !== null ) {
-               locationstring = AudioName[$(this).attr("data-id")];
-              console.log('Audio item: '+ locationstring)
-              var srcfile = locationstring;
-              console.log('Non-object Audio: '+srcfile); 
-			  playAudio(srcfile);
-              }
- //              
-//               //Figure out why aiff files fail here
-//               locationstring = AudioName[$(this).attr("data-id")];
-//               console.log('Audio item: '+ locationstring)
-//               var srcfile = locationstring;
-//               if (srcfile.indexOf("aiff") == -1){
-//               if (AudioName[$(this).attr("data-id")] !== null){
-//           			srcfile = AudioName[$(this).attr("data-id")].toInternalURL();}
-//           			}
-// 					console.log('Flip Audio: '+srcfile); 
-// 			 	    playAudio(srcfile);
+					
+					console.log(AudioName[$(this).attr("data-id")]); 
+			 	    playAudio(AudioName[$(this).attr("data-id")]);
 				
 				if(!_.guess){
 					_.guess = $(this).attr("data-id");
@@ -157,15 +132,7 @@ function PlayGame(){
 			}, 1000);
 			playAudio(Tada);
 			// Vibrate for 3 seconds
-			
-			 var delay=5000; //1 second
-
-setTimeout(function() {
-  console.log('5 Seconds');
-  //your code to be executed after 1 second
-navigator.vibrate(3000);
-}, delay);
-            
+            navigator.vibrate(3000);
 		},
 
 		showModal: function(){
@@ -294,7 +261,9 @@ LoadPixAudio();
 PhotoNum = PhotoNumber;
 // var SwapCard = 'images/'+PhotoNum+'File.jpg';
 var SwapCard = Card[PhotoNum];
-console.log(localStorage);
+console.log("Swapcard "+SwapCard);
+
+
 
 
 // var imgWidth = img.naturalWidth;
@@ -341,10 +310,21 @@ var captureSuccess = function(mediaFiles) {
     var i, path, len;
     for (i = 0, len = mediaFiles.length; i < len; i += 1) {
         path = mediaFiles[i].fullPath;
-        console.log(path);
+        console.log('path: '+path);
         playAudio(path);
-        MoveAudio(path);
+        AudioName[PhotoNumber] = path;
         
+        
+        var delay=5000; //1 second
+
+setTimeout(function() {
+  console.log('5 Seconds');
+   MoveAudio(path);
+  //your code to be executed after 1 second
+}, delay);
+       
+        
+        // do something interesting with the file
     }
 };
 
@@ -372,49 +352,13 @@ function playAudio(url) {
     );
     // Play audio
     my_media.play();
-   
-    
-    var delay=10000; //10 seconds
-
-setTimeout(function() {
-  console.log('5 Seconds');
-  //your code to be executed after 1 second
-my_media.stop();
-my_media.release();
-}, delay);
-
-   
-}
-
-function playStoredAudio(PhotoNumber) {
-    // Play the audio file at url
-    var srcfile = AudioName[PhotoNumber].toInternalURL();
-   //  var srcfile = cordova.file.documentsDirectory + 'FamilyFaceMatch/'+PhotoNumber+'.wav';
-//     console.log('ackkkkkk: '+srcfile);
-    
-    
-    playAudio(srcfile);			
-//     console.log('UGLy ugly: '+storedfile);
-//     var my_media = new Media(storedfile,
-//         // success callback
-//         function () {
-//             console.log("playAudio():Audio Success");
-//         },
-//         // error callback
-//         function (err) {
-//             console.log("playAudio():Audio Error: " + err);
-//         }
-//     );
-//     // Play audio
-//     my_media.play();
-// //     my_media.stop();
-// //     my_media.release();
-//    
+    my_media.stop();
+    my_media.release();
 }
 
 
+       
 function SavePix(CardNumber,PixURL){
-                            PixURL = PixURL.toInternalURL();
                              window.localStorage.setItem('Pix-'+CardNumber,PixURL); 
                              Card[CardNumber] = PixURL;       
                              console.log('Saved and set: '+CardNumber,PixURL);        
@@ -433,13 +377,14 @@ console.log('ticker = '+ticker);
 
 
 for(var i = 0; i < ticker; i++){
-var AudioRef ='Audio-'+i;
+
 var PixRef ='Pix-'+i;
+var AudioRef ='Audio-'+i;
 var StoredPixURL = localStorage.getItem(PixRef);
 var StoredAudioURL = localStorage.getItem(AudioRef);
 if (StoredPixURL !== null) {Card[i] = StoredPixURL;};
-console.log('LOADING: '+i+' url '+StoredPixURL); 
-if (StoredAudioURL !== null) {AudioName[i] = StoredAudioURL};
+console.log('LOADING: '+i+' url '+StoredPixURL);
+if (StoredAudioURL !== null) {AudioName[i] = StoredAudioURL;};
 console.log('LOADING: '+i+' url '+StoredAudioURL);
 }
 $('.game').html('');
@@ -458,7 +403,6 @@ function resolveOnSuccess(entry){
 
     var newFileName = PhotoNum + ".jpg";
     var myFolderApp = "FamilyFaceMatch";
-   //  console.log('Pix entry: '+entry);
 
     window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function(fileSys) {      
     //The folder is created if doesn't exist
@@ -472,24 +416,6 @@ function resolveOnSuccess(entry){
     resOnError);
 }
 
-function resolveOnAudioSuccess(entry){ 
-
-    var newFileName = PhotoNum + ".wav";
-    var myFolderApp = "FamilyFaceMatch";
-    console.log('Audio entry: '+entry);
-
-    window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function(fileSys) {      
-    //The folder is created if doesn't exist
-    fileSys.root.getDirectory( myFolderApp,
-                    {create:true, exclusive: false},
-                    function(directory) {
-                        entry.moveTo(directory, newFileName,  successAudioMove, resOnError);       
-                    },
-                    resOnError);
-                    },
-    resOnError);
-    
-}
 
 
 //Callback function when the file has been moved successfully - inserting the complete path
@@ -501,24 +427,32 @@ function successMove(entry) {
 // // IOS_ASSETS_ABS_PATH += "www/";
 //     console.log('Saving Picture: '+IOS_ASSETS_ABS_PATH);
 //     SavePix(PhotoNum,IOS_ASSETS_ABS_PATH);
-// entry = entry.toInternalURL();
-// MovePic(entry);
-SavePix(PhotoNum,entry);
-console.log('saving '+PhotoNum+' as '+entry);
 }
 
 function MoveAudio(file){ 
     console.log('MoveAudio '+file);
-    filepath = 'file:///'+file;
-    window.resolveLocalFileSystemURL(filepath, resolveOnAudioSuccess, resOnAudioError); 
-   
+
+    window.resolveLocalFileSystemURL(file, resolveOnAudioSuccess, resOnAudioError); 
 } 
 
-
-
 //Callback function when the file system uri has been resolved
+function resolveOnAudioSuccess(entry){ 
 
+    var newFileName = PhotoNum + ".wav";
+    var myFolderApp = "FamilyFaceMatch";
+    console.log('entry: '+entry);
 
+    window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function(fileSys) {      
+    //The folder is created if doesn't exist
+    fileSys.root.getDirectory( myFolderApp,
+                    {create:true, exclusive: false},
+                    function(directory) {
+                        entry.moveTo(directory, newFileName,  successAudioMove, resOnError);
+                    },
+                    resOnError);
+                    },
+    resOnError);
+}
 
 
 
@@ -527,10 +461,8 @@ function MoveAudio(file){
 //Callback function when the file has been moved successfully - inserting the complete path
 function successAudioMove(entry) {
     //I do my insert with "entry.fullPath" as for the path
-    console.log('Processing Hopeful Audio: '+entry);
-    entry = entry.toInternalURL();
-    console.log('Saving Hopeful audio: '+entry); 
-    SaveAudio(PhotoNum,entry);
+    console.log('Saving Audio: '+entry.toURL());
+    SaveAudio(PhotoNum,entry.toURL());
 }
 
 function resOnError(error) {
@@ -610,15 +542,12 @@ function getRandomIntInclusive(min, max) {
 }
 
 setInterval(updateGradient,10);
-console.log("Top of the pops here........");
+console.log("here........");
 
-// for (i = 0; i < 7; i++) {
-// MoveAudio(AudioName[i]);
-// console.log('moving: '+i);
-// }
-
-// localStorage.clear();
+// <div class="singlecard"><div class="inside"><div class="back">
+// </div></div></div>
 SetupPix();
+//  PlayGame();
 
 
 

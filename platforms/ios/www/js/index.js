@@ -40,7 +40,7 @@ var PhotoNum;
 var CardAudio;
 var Tada = "audio/tada.mp3";
 var FirstRun = true;
-var $scope;
+var AudioFinished = false;
 
 
 
@@ -104,6 +104,21 @@ function PlayGame(){
               if( AudioName[$(this).attr("data-id")] !== null && typeof AudioName[$(this).attr("data-id")] === 'object'){ srcfile = AudioName[$(this).attr("data-id")].toInternalURL(); 
               console.log('Object Audio: '+srcfile); 
 			 	    playAudio(srcfile);
+			 	    asyncLoop(10, function(loop) {
+    someFunction(1, 2, function(result) {
+
+        // log the iteration
+        console.log(loop.iteration());
+
+        // Okay, for cycle could continue
+        loop.next();
+    })},
+    function(){console.log('cycle ended')}
+);
+
+			 	    
+			 	    
+			 	    AudioFinished == false;
               
               } else 
               if ( AudioName[$(this).attr("data-id")] !== null ) {
@@ -155,22 +170,15 @@ function PlayGame(){
 				Memory.showModal();
 				Memory.$game.fadeOut();
 			}, 1000);
-			playAudio(Tada);
-			// Vibrate for 3 seconds
 			
-			 var delay=5000; //1 second
-
-setTimeout(function() {
-  console.log('5 Seconds');
-  //your code to be executed after 1 second
-navigator.vibrate(3000);
-}, delay);
+			
             
 		},
 
 		showModal: function(){
 			this.$overlay.show();
 			this.$modal.fadeIn("slow");	
+			playAudio(Tada);
 			
 		},
 
@@ -364,6 +372,9 @@ function playAudio(url) {
         // success callback
         function () {
             console.log("playAudio():Audio Success");
+            my_media.stop();
+            my_media.release();
+            AudioFinished = true;
         },
         // error callback
         function (err) {
@@ -373,15 +384,6 @@ function playAudio(url) {
     // Play audio
     my_media.play();
    
-    
-    var delay=10000; //10 seconds
-
-setTimeout(function() {
-  console.log('5 Seconds');
-  //your code to be executed after 1 second
-my_media.stop();
-my_media.release();
-}, delay);
 
    
 }
@@ -617,7 +619,45 @@ console.log("Top of the pops here........");
 // console.log('moving: '+i);
 // }
 
-// localStorage.clear();
+
+function asyncLoop(condition, func, callback) {
+    var index = 0;
+    var done = false;
+    var loop = {
+        next: function() {
+            if (done) {
+                return;
+            }
+
+            if (AudioFinished == false) {
+                index++;
+                func(loop);
+
+            } else {
+                done = true;
+                callback();
+            }
+        },
+
+        iteration: function() {
+            return index - 1;
+        },
+
+        break: function() {
+            done = true;
+            callback();
+        }
+    };
+    loop.next();
+    return loop;
+}
+
+function someFunction(a, b, callback) {
+    console.log('Waiting for Audio');
+    callback();
+}
+
+localStorage.clear();
 SetupPix();
 
 

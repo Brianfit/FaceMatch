@@ -20,7 +20,7 @@ Coins.css contains camera and mic etc icons
       <meta http-equiv="Content-Security-Policy" 
       content="default-src 'self' data: gap: cdvfile: https://ssl.gstatic.com 'unsafe-eval'; 
                style-src 'self' 'unsafe-inline'; 
-               media-src *; script-src 'self' 'unsafe-inline' 'unsafe-eval' *;child-src 'self' * gap://ready; style-src 'self' 'unsafe-inline' *">
+               media-src *; script-src 'self' 'unsafe-inline' 'unsafe-eval' *;font-src 'self' 'unsafe-inline' 'unsafe-eval' *;child-src 'self' * gap://ready; style-src 'self' 'unsafe-inline' *">
                
                
                
@@ -64,7 +64,7 @@ var destinationType; // sets the format of returned value
     //
     function onPhotoURISuccess(imageURI) {
       // Uncomment to view the image file URI
-      console.log('success: '+imageURI);
+//       console.log('success: '+imageURI);
       MovePic(imageURI);
 //       var path = imageURI;//given by the success callback
 // IOS_ASSETS_ABS_PATH = path.replace("file:///", "file:///private/");
@@ -75,7 +75,7 @@ var destinationType; // sets the format of returned value
 var delay=1000; //1 second
 
 setTimeout(function() {
-  console.log('5 Seconds');
+//   console.log('5 Seconds');
   ChangePhotoAgain(PhotoNum);
   //your code to be executed after 1 second
 }, delay);
@@ -89,7 +89,7 @@ function captureName() {navigator.device.capture.captureAudio(captureSuccess, ca
     // A button will call this function
     //
     function capturePhoto() {
-    console.log('Capture photo');
+//     console.log('Capture photo');
       // Take picture using device camera and retrieve image as base64-encoded string
       navigator.camera.getPicture(onPhotoDataSuccess, onFail, { quality: 50,
         destinationType: destinationType.FILE_URI });
@@ -195,7 +195,7 @@ var playSound = function(x) {
         var media = new Media(mediaUrl, function(e) {
             media.release();
         }, function(err) {
-            console.log("media err", err);
+//             console.log("media err", err);
         });
         media.play();           
     });     
@@ -302,7 +302,7 @@ var captureError = function(error) {
 		 
 		
 </div>	
-<div style="position:absolute; bottom: 0" class="center">
+<div style="position:absolute; bottom: 0; z-index:1000" class="center">
 
 <button class="restart" type="submit" name="restart" value="restart_btn_was_clicked"
 style="height: 80px;width: 80px;border-radius: 80px; border: 0px solid #000; margin-bottom:30px;"><img src="images/play.png" style="height:50px;width:50px"></button><br />
@@ -313,8 +313,11 @@ style="height: 80px;width: 80px;border-radius: 80px; border: 0px solid #000; mar
 	</div>
  
    </div><!-- End Container --> 
-   
 
+
+<!-- <a href="javascript:void(0)" id="Play"><img src="images/play.png" height="50" width="50" style="margin-bottom:30px"></a></div> -->
+
+		</div>
    
       <script src='js/jquery.min.js'></script>
       <script src='js/alertify.min.js'></script>

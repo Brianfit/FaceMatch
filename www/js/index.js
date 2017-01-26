@@ -102,18 +102,19 @@ function PlayGame(){
               
               
               if( AudioName[$(this).attr("data-id")] !== null && typeof AudioName[$(this).attr("data-id")] === 'object'){ srcfile = AudioName[$(this).attr("data-id")].toInternalURL(); 
-              console.log('Object Audio: '+srcfile); 
+             //  console.log('Object Audio: '+srcfile); 
 			 	    playAudio(srcfile);
 			 	    asyncLoop(10, function(loop) {
     someFunction(1, 2, function(result) {
 
         // log the iteration
-        console.log(loop.iteration());
+//         console.log(loop.iteration());
 
         // Okay, for cycle could continue
         loop.next();
     })},
-    function(){console.log('cycle ended')}
+    function(){// console.log('cycle ended')
+    }
 );
 
 			 	    
@@ -123,9 +124,9 @@ function PlayGame(){
               } else 
               if ( AudioName[$(this).attr("data-id")] !== null ) {
                locationstring = AudioName[$(this).attr("data-id")];
-              console.log('Audio item: '+ locationstring)
+//               console.log('Audio item: '+ locationstring)
               var srcfile = locationstring;
-              console.log('Non-object Audio: '+srcfile); 
+//               console.log('Non-object Audio: '+srcfile); 
 			  playAudio(srcfile);
               }
  //              
@@ -162,15 +163,20 @@ function PlayGame(){
 		win: function(){
 			this.paused = true;
 			var RandomNum = getRandomIntInclusive(1, 6);
-			console.log('RandomNum: '+RandomNum);
+// 			console.log('RandomNum: '+RandomNum);
 			var HoorayImage = 'images/'+RandomNum+'.gif';
-			console.log(HoorayImage);
+// 			console.log(HoorayImage);
 			document.getElementById("Hooray").style.backgroundImage = "url("+HoorayImage +")";
 			setTimeout(function(){
 				Memory.showModal();
 				Memory.$game.fadeOut();
 			}, 1000);
-			
+			var delayMillis = 5000; //4 second
+
+setTimeout(function() {
+Memory.hideModal();
+Memory.reset();
+}, delayMillis);
 			
             
 		},
@@ -179,6 +185,8 @@ function PlayGame(){
 			this.$overlay.show();
 			this.$modal.fadeIn("slow");	
 			playAudio(Tada);
+			
+			
 			
 		},
 
@@ -287,7 +295,7 @@ LoadPixAudio();
 $('.game').html('<div class="container" ><div class="row"><div class="col-xs-6"><span class="pull-right"><a href="javascript:void(0)" class="Change1"><img style="margin-top:5px;margin-bottom:5px; height:80px;" src="'+Card[1]+'"></a></span></div><div class="col-xs-6"><a href="javascript:void(0)" class="Change2"><img style="margin-top:5px;margin-bottom:5px; height:80px;" src="'+Card[2]+'"></a></div></div><div class="row"><div class="col-xs-12" ></div><div class="row"><div class="col-xs-6"><span class="pull-right"><a href="javascript:void(0)" class="Change3"><img style="margin-top:5px;margin-bottom:5px; height:80px;" src="'+Card[3]+'"></a></span></div><div class="col-xs-6"><a href="javascript:void(0)" class="Change4"><img style="margin-top:5px;margin-bottom:5px; height:80px;" src="'+Card[4]+'"></a></div></div><div class="row"><div class="col-xs-12" ></div><div class="row"><div class="col-xs-6"><span class="pull-right"><a href="javascript:void(0)" class="Change5"><img style="margin-top:5px;margin-bottom:5px; height:80px;" src="'+Card[5]+'"></a></span></div><div class="col-xs-6"><a href="javascript:void(0)" class="Change6"><img style="margin-top:5px;margin-bottom:5px; height:80px;" src="'+Card[6]+'"></a></div></div></div><div class="row"><div class="col-xs-12"><div class="text-center" style="font-family: Indie Flower"></div></div></div>');
 
 if (FirstRun == true){
-alertify.alert("Touch a play tile to change the image to one of your own photos and add your own custom audio: for example, the name of the family member or pet spoken in your or your child\'s own voice.");
+alertify.alert("Welcome to Family Face Match, the matching game you can customize with your own images and voice. Create games to teach family names and faces, pet or animal names, or vocabulary. The example game teaches colors. After you press OK, you'll be on the setup screen. <strong>Touch a play tile to change the image</strong> to a photo from your camera or library. Then add custom audio by recording the name of the person, pet, or object in your own voice or your child\'s.");
 FirstRun = false};
 
 $('.control').html('<a href="javascript:void(0)" id="Play"><img src="images/play.png" height="50" width="50" style="margin-bottom:30px"></a>');
@@ -296,13 +304,12 @@ $('.control').html('<a href="javascript:void(0)" id="Play"><img src="images/play
 
 
 
-
 function ChangePhoto(PhotoNumber) {
 LoadPixAudio();
 PhotoNum = PhotoNumber;
 // var SwapCard = 'images/'+PhotoNum+'File.jpg';
 var SwapCard = Card[PhotoNum];
-console.log(localStorage);
+// console.log(localStorage);
 
 
 // var imgWidth = img.naturalWidth;
@@ -322,7 +329,7 @@ LoadPixAudio();
 PhotoNum = PhotoNumber;
 // var SwapCard = 'images/'+PhotoNum+'File.jpg';
 var SwapCardAgain = Card[PhotoNum];
-console.log("SwapcardAgain "+SwapCardAgain);
+// console.log("SwapcardAgain "+SwapCardAgain);
 
 
 
@@ -349,7 +356,7 @@ var captureSuccess = function(mediaFiles) {
     var i, path, len;
     for (i = 0, len = mediaFiles.length; i < len; i += 1) {
         path = mediaFiles[i].fullPath;
-        console.log(path);
+//         console.log(path);
         playAudio(path);
         MoveAudio(path);
         
@@ -371,14 +378,14 @@ function playAudio(url) {
     var my_media = new Media(url,
         // success callback
         function () {
-            console.log("playAudio():Audio Success");
+//             console.log("playAudio():Audio Success");
             my_media.stop();
             my_media.release();
             AudioFinished = true;
         },
         // error callback
         function (err) {
-            console.log("playAudio():Audio Error: " + err);
+//             console.log("playAudio():Audio Error: " + err);
         }
     );
     // Play audio
@@ -419,19 +426,19 @@ function SavePix(CardNumber,PixURL){
                             PixURL = PixURL.toInternalURL();
                              window.localStorage.setItem('Pix-'+CardNumber,PixURL); 
                              Card[CardNumber] = PixURL;       
-                             console.log('Saved and set: '+CardNumber,PixURL);        
+//                              console.log('Saved and set: '+CardNumber,PixURL);        
 };
 
 function SaveAudio(CardNumber,AudioURL){
                              window.localStorage.setItem('Audio-'+CardNumber,AudioURL);
                               AudioName[CardNumber] = AudioURL;
-                              console.log('Saved and set: '+CardNumber,AudioURL);
+//                               console.log('Saved and set: '+CardNumber,AudioURL);
 };
 
 function LoadPixAudio(){
 if (window.localStorage.length !== 0){
 var ticker = 7;
-console.log('ticker = '+ticker);
+// console.log('ticker = '+ticker);
 
 
 for(var i = 0; i < ticker; i++){
@@ -440,9 +447,9 @@ var PixRef ='Pix-'+i;
 var StoredPixURL = localStorage.getItem(PixRef);
 var StoredAudioURL = localStorage.getItem(AudioRef);
 if (StoredPixURL !== null) {Card[i] = StoredPixURL;};
-console.log('LOADING: '+i+' url '+StoredPixURL); 
+// console.log('LOADING: '+i+' url '+StoredPixURL); 
 if (StoredAudioURL !== null) {AudioName[i] = StoredAudioURL};
-console.log('LOADING: '+i+' url '+StoredAudioURL);
+// console.log('LOADING: '+i+' url '+StoredAudioURL);
 }
 $('.game').html('');
 
@@ -478,7 +485,7 @@ function resolveOnAudioSuccess(entry){
 
     var newFileName = PhotoNum + ".wav";
     var myFolderApp = "FamilyFaceMatch";
-    console.log('Audio entry: '+entry);
+//     console.log('Audio entry: '+entry);
 
     window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function(fileSys) {      
     //The folder is created if doesn't exist
@@ -510,7 +517,7 @@ console.log('saving '+PhotoNum+' as '+entry);
 }
 
 function MoveAudio(file){ 
-    console.log('MoveAudio '+file);
+//     console.log('MoveAudio '+file);
     filepath = 'file:///'+file;
     window.resolveLocalFileSystemURL(filepath, resolveOnAudioSuccess, resOnAudioError); 
    
@@ -529,9 +536,9 @@ function MoveAudio(file){
 //Callback function when the file has been moved successfully - inserting the complete path
 function successAudioMove(entry) {
     //I do my insert with "entry.fullPath" as for the path
-    console.log('Processing Hopeful Audio: '+entry);
+//     console.log('Processing Hopeful Audio: '+entry);
     entry = entry.toInternalURL();
-    console.log('Saving Hopeful audio: '+entry); 
+//     console.log('Saving Hopeful audio: '+entry); 
     SaveAudio(PhotoNum,entry);
 }
 
@@ -605,14 +612,14 @@ var color2 = "rgb("+r2+","+g2+","+b2+")";
 }
 
 function getRandomIntInclusive(min, max) {
-   console.log('Randomizing');
+//    console.log('Randomizing');
   min = Math.ceil(min);
   max = Math.floor(max);
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
 setInterval(updateGradient,10);
-console.log("Top of the pops here........");
+// console.log("Top of the pops here........");
 
 // for (i = 0; i < 7; i++) {
 // MoveAudio(AudioName[i]);
@@ -653,11 +660,11 @@ function asyncLoop(condition, func, callback) {
 }
 
 function someFunction(a, b, callback) {
-    console.log('Waiting for Audio');
+//     console.log('Waiting for Audio');
     callback();
 }
 
-localStorage.clear();
+// localStorage.clear();
 SetupPix();
 
 
